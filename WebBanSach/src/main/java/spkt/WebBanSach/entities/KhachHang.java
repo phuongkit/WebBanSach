@@ -36,7 +36,7 @@ public class KhachHang {
 	public String getMaKhachHang() {
 		return maKhachHang;
 	}
-	public void setMaKhachHang(String maKhachHang) {
+	public void setMaKhachHang(String maKhachHang)  {
 		this.maKhachHang = maKhachHang;
 	}
 	
