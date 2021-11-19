@@ -18,7 +18,7 @@ public class KhachHang {
 	private String email;
 	private String dienThoai;
 	private String diaChi;
-	private Set<KhachHang> employees = new HashSet<KhachHang>(0);
+	private Set<KhachHang> employees = new HashSet<KhachHang>(0) ;
 
 	public KhachHang() {
 
