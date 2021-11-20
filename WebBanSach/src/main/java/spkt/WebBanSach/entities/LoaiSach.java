@@ -22,7 +22,7 @@ public class LoaiSach {
 		
 	}
 	
-	public LoaiSach(String maLoaiSach, String tenLoaiSach) {
+	public LoaiSach(String maLoaiSach, String tenLoaiSach)  {
 		this.maLoaiSach = maLoaiSach;
 		this.tenLoaiSach = tenLoaiSach;
 	}
