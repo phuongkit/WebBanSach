@@ -18,7 +18,7 @@ public class KhachHang {
 	private String email;
 	private String dienThoai;
 	private String diaChi;
-	private Set<KhachHang> employees = new HashSet<KhachHang>(0);
+	private Set<KhachHang> khachhangs = new HashSet<KhachHang>(0);
 
 	public KhachHang() {
 
@@ -74,10 +74,10 @@ public class KhachHang {
 	}
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "maKhachHang")
-	public Set<KhachHang> getEmployees() {
-		return employees;
+	public Set<KhachHang> getkhachhangs() {
+		return khachhangs;
 	}
-	public void setEmployees(Set<KhachHang> employees) {
-		this.employees = employees;
+	public void setkhachhangs(Set<KhachHang> khachhangs) {
+		this.khachhangs = khachhangs;
 	}
 }

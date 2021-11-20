@@ -21,7 +21,7 @@ public class TaiKhoanMXH {
 	private String matKhau;
 	private Date ngayTao;
 	private Boolean Quyen;
-	private Set<TaiKhoanMXH> taiKhoanMXHs = new HashSet<TaiKhoanMXH>(0);
+	private Set<TaiKhoanMXH> taikhoanMXHs = new HashSet<TaiKhoanMXH>(0);
 	
 	public TaiKhoanMXH() {
 		
@@ -85,10 +85,10 @@ public class TaiKhoanMXH {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "maKH,tenDangNhap")
 	public Set<TaiKhoanMXH> getTaiKhoanMXHs() {
-		return taiKhoanMXHs;
+		return taikhoanMXHs;
 	}
 
-	public void setTaiKhoanMXHs(Set<TaiKhoanMXH> taiKhoanMXHs) {
-		this.taiKhoanMXHs = taiKhoanMXHs;
+	public void setTaiKhoanMXHs(Set<TaiKhoanMXH> taikhoanMXHs) {
+		this.taikhoanMXHs = taikhoanMXHs;
 	}
 }
