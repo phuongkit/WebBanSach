@@ -26,8 +26,8 @@
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
         
-        <mapping class="spkt.WebBanSach.entities.KhachHang" />
-        <mapping class="spkt.WebBanSach.entities.TaiKhoanMXH" />
+        <mapping class="entities.KhachHang" />
+        <mapping class="entities.TaiKhoanMXH" />
         
     </session-factory>
 </hibernate-configuration>
