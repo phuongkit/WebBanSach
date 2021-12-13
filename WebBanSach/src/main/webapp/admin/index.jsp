@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri ="http://java.sun.com/jstl/core" prefix ="c" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="views/css/main.css">
+    <link rel="stylesheet" type="text/css" href="admin/css/main.css">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Login Admin</title>
@@ -21,7 +22,7 @@
         <h1>Admin</h1>
       </div>
       <div class="login-box">
-        <form class="login-form" action="views/Dashboard.jsp">
+        <form class="login-form" action="admin/Dashboard.jsp">
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
           <div class="form-group">
             <label class="control-label">USERNAME</label>

@@ -15,24 +15,43 @@ import javax.persistence.Table;
 public class Sach {
 	private String maSach;
 	private String tenSach;
-	private String moTa;
+	private String maLS;
+	private String maTG;
+	private String maNXB;
 	private String ngayTao;
 	private float soLuongDaBan;
-    private float soLuongHienCo;
+	private float soLuongHienCo;
     private float giaBan;
     private float giaMua;
-    private String maNXB;
-    private String maLS;
-    private String maTG;
+    private String moTa;
+    
+    
+    
     
 //    private Set<Sach> sachs = new HashSet<Sach>(0);
-
+    
     @Id
 	@Column(name = "maSach", length = 10)
 	public String getMaSach() {
 		return maSach;
 	}
+    
+	public Sach(String maSach, String tenSach, String maLS, String maTG, String maNXB, String ngayTao, float soLuongDaBan,
+		float soLuongHienCo, float giaBan, float giaMua) {
+	this.maSach = maSach;
+	this.tenSach = tenSach;
+	this.maLS = maLS;
+	this.maTG = maTG;
+	this.maNXB = maNXB;
+	this.ngayTao = ngayTao;
+	this.soLuongDaBan = soLuongDaBan;
+	this.soLuongHienCo = soLuongHienCo;
+	this.giaBan = giaBan;
+	this.giaMua = giaMua;
+}
 
+	public Sach() {}
+	
 	public void setMaSach(String maSach) {
 		this.maSach = maSach;
 	}
