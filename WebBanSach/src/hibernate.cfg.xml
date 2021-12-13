@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+      "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+      "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- Database connection settings -->
+		<property name="connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
+		<property name="connection.url">jdbc:jtds:sqlserver://localhost:1433/BookSalesManager</property>
+		<property name="connection.username">sa</property>
+		<property name="connection.password">12345</property>
+
+		<!-- JDBC connection pool (use the built-in) -->
+		<property name="connection.pool_size">1</property>
+
+		<!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
+
+		<!-- Enable Hibernate's automatic session context management -->
+		<property name="current_session_context_class">thread</property>
+
+		<!-- Disable the second-level cache -->
+		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">true</property>
+
+		<!-- Automatically validates or exports schema DDL to the database when 
+			the SessionFactory is created -->
+		<!-- validate, create, update, create-drop -->
+
+		<mapping class="Model.Account" />
+		<mapping class="Model.Author" />
+		<mapping class="Model.Book" />
+		<mapping class="Model.BookCategory" />
+		<mapping class="Model.Cart" />
+		
+		<mapping class="Model.Customer" />
+		<mapping class="Model.DeliveryStatus" />
+		<mapping class="Model.Discount" />
+		<mapping class="Model.Image" />
+		<mapping class="Model.Order" />
+		
+		<mapping class="Model.Payment" />
+		<mapping class="Model.ShippingMethod" />
+		<mapping class="Model.Supplier" />
+		
+	</session-factory>
+</hibernate-configuration>
