@@ -146,3 +146,89 @@ CREATE TABLE Cart(
 	FOREIGN KEY (order_id) REFERENCES Orders (id)
 )
 GO
+
+INSERT INTO BookCategory VALUES(N'Sách Kinh Tế - Kỹ Năng');--1
+INSERT INTO BookGrenre VALUES(N'Kinh Tế - Chính Trị',1);
+INSERT INTO BookGrenre VALUES(N'Sách Khởi Nghiệp',1);
+INSERT INTO BookGrenre VALUES(N'Sách Tài Chính, Kế Toán',1);
+INSERT INTO BookGrenre VALUES(N'Sách Quản Trị Nhân Sự',1);
+INSERT INTO BookGrenre VALUES(N'Sách Kỹ Năng Làm Việc',1);
+INSERT INTO BookGrenre VALUES(N'Nhân Vật - Bài Học Kinh Doanh',1);
+INSERT INTO BookGrenre VALUES(N'Sách Quản Trị - Lãnh Đạo',1);
+INSERT INTO BookGrenre VALUES(N'Sách Kinh Tế Học',1);
+INSERT INTO BookGrenre VALUES(N'Sách Chứng Khoán - Bất Động Sản - Đầu Tư',1);
+INSERT INTO BookGrenre VALUES(N'Sách Marketing - Bán Hàng',1);
+
+INSERT INTO BookCategory VALUES(N'Nghệ Thuật Sống - Tâm Lý');--2
+INSERT INTO BookGrenre VALUES(N'Sách Nghệ Thuật Sống',2);
+INSERT INTO BookGrenre VALUES(N'Sách Tâm Lý',2);
+INSERT INTO BookGrenre VALUES(N'Sách Hướng Nghiệp',2);
+INSERT INTO BookGrenre VALUES(N'Sách Nghệ Thuật Sống Đẹp',2);
+INSERT INTO BookGrenre VALUES(N'Sách Tư Duy',2);
+
+INSERT INTO BookCategory VALUES(N'Sách Văn Học Việt Nam');--3
+INSERT INTO BookGrenre VALUES(N'Truyện Ngắn - Tản Văn',3);
+INSERT INTO BookGrenre VALUES(N'Tiểu Thuyết lịch Sử',3);
+INSERT INTO BookGrenre VALUES(N'Phóng Sự - Ký Sự - Du ký - Tùy Bút',3);
+INSERT INTO BookGrenre VALUES(N'Thơ',3);
+INSERT INTO BookGrenre VALUES(N'Tiểu thuyết',3);
+INSERT INTO BookGrenre VALUES(N'Tiểu sử - Hồi ký',3);
+INSERT INTO BookGrenre VALUES(N'Phê Bình Văn Học',3);
+
+INSERT INTO BookCategory VALUES(N'Sách Văn Học Nước Ngoài');--4
+INSERT INTO BookGrenre VALUES(N'Văn Học Hiện Đại',4);
+INSERT INTO BookGrenre VALUES(N'Tiểu Thuyết',4);
+INSERT INTO BookGrenre VALUES(N'Truyện Trinh Thám',4);
+INSERT INTO BookGrenre VALUES(N'Thần Thoại - Cổ Tích',4);
+INSERT INTO BookGrenre VALUES(N'Văn Học Kinh Điển',4);
+INSERT INTO BookGrenre VALUES(N'Sách Giả Tưởng - Kinh Dị',4);
+INSERT INTO BookGrenre VALUES(N'Truyện Kiếm Hiệp',4);
+
+INSERT INTO BookCategory VALUES(N'Sách Thiếu Nhi');--5
+INSERT INTO BookGrenre VALUES(N'Mẫu Giáo',5);
+INSERT INTO BookGrenre VALUES(N'Thiếu Niên',5);
+INSERT INTO BookGrenre VALUES(N'Kiến Thức - Bách Khoa',5);
+INSERT INTO BookGrenre VALUES(N'Truyện Cổ Tích',5);
+INSERT INTO BookGrenre VALUES(N'Nhi Đồng',5);
+INSERT INTO BookGrenre VALUES(N'Văn Học Thiếu Nhi',5);
+INSERT INTO BookGrenre VALUES(N'Kỹ Năng Sống',5);
+INSERT INTO BookGrenre VALUES(N'Truyện Tranh',5);
+
+INSERT INTO BookCategory VALUES(N'Sách Giáo Dục - Gia Đình');--6
+INSERT INTO BookGrenre VALUES(N'Giáo dục',6);
+INSERT INTO BookGrenre VALUES(N'Thai Giáo',6);
+INSERT INTO BookGrenre VALUES(N'Sách Dinh Dưỡng - Chăm Sóc Trẻ',6);
+INSERT INTO BookGrenre VALUES(N'Ẩm Thực - Nấu Ăn',6);
+INSERT INTO BookGrenre VALUES(N'Sách Tham Khảo',6);
+INSERT INTO BookGrenre VALUES(N'Giới Tính',6);
+INSERT INTO BookGrenre VALUES(N'Sách Làm Cha Mẹ',6);
+INSERT INTO BookGrenre VALUES(N'Kiến Thức - Kỹ Năng Cho Trẻ',6);
+INSERT INTO BookGrenre VALUES(N'Ngoại Ngữ - Từ Điển',6);
+
+INSERT INTO BookCategory VALUES(N'Sách Lịch Sử');--7
+INSERT INTO BookGrenre VALUES(N'Lịch Sử Việt Nam',7);
+INSERT INTO BookGrenre VALUES(N'Lịch Sử Thế Giới',7);
+
+INSERT INTO BookCategory VALUES(N'Sách Văn Hóa - Nghệ Thuật');--8
+INSERT INTO BookGrenre VALUES(N'Văn Hóa',8);
+INSERT INTO BookGrenre VALUES(N'Phong Tục Tập Quán',8);
+INSERT INTO BookGrenre VALUES(N'Phong Thủy',8);
+INSERT INTO BookGrenre VALUES(N'Nghệ Thuật',8);
+INSERT INTO BookGrenre VALUES(N'Kiến Trúc',8);
+INSERT INTO BookGrenre VALUES(N'Du Lịch',8);
+
+INSERT INTO BookCategory VALUES(N'Sách Khoa Học - Triết Học');--9
+INSERT INTO BookGrenre VALUES(N'Triết Học Phương Tây',9);	
+INSERT INTO BookGrenre VALUES(N'Khoa Học Cơ Bản',9);
+INSERT INTO BookGrenre VALUES(N'Minh Tiết Phương Đông',9);
+
+INSERT INTO BookCategory VALUES(N'Sách Tâm Linh - Tôn Giáo');--10
+
+INSERT INTO BookCategory VALUES(N'Sách Y Học - Thực Dưỡng');--11
+INSERT INTO BookGrenre VALUES(N'Chăm Sóc Sức Khỏe',11);
+INSERT INTO BookGrenre VALUES(N'Y Học',11);
+INSERT INTO BookGrenre VALUES(N'Thiền - Yoga',11);
+INSERT INTO BookGrenre VALUES(N'Thực Dưỡng',11);
+INSERT INTO BookGrenre VALUES(N'Đông Y - Cổ Truyền',11);
+
+INSERT INTO BookCategory VALUES(N'Các Loại Sách Khác');--12

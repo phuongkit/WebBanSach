@@ -35,7 +35,6 @@ public class TableBook extends HttpServlet {
 //		ArrayList<Sach> listBook = utils.DBUtils.getAllBook();
 		
 		ArrayList<Book> books = BookDAO.getAllBooks();
-		
 		request.setAttribute("books", books);
 		request.getRequestDispatcher("/admin/tableBook.jsp").forward(request, response);
 	}
