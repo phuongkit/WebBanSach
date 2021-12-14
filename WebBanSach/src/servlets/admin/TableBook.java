@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import DAO.BookDAO;
 import Model.Book;
-import entities.Sach;
 
 /**
  * Servlet implementation class TableBook
@@ -35,7 +34,8 @@ public class TableBook extends HttpServlet {
 		// TODO Auto-generated method stub
 //		ArrayList<Sach> listBook = utils.DBUtils.getAllBook();
 		
-		ArrayList<Book> books = BookDAO.getAll();
+		ArrayList<Book> books = BookDAO.getAllBooks();
+		
 		request.setAttribute("books", books);
 		request.getRequestDispatcher("/admin/tableBook.jsp").forward(request, response);
 	}

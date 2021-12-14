@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Sach;
+import DAO.BookDAO;
+import Model.Book;
 
 /**
  * Servlet implementation class indexServlet
@@ -46,9 +47,9 @@ public class indexServlet extends HttpServlet {
 		doGet(request, response);
 	}
 	public static void main(String[] args) {
-		ArrayList<Sach> listBook = utils.DBUtils.getAllBook();
-		for (Sach sach : listBook) {
-			System.out.println(sach.getGiaBan());
+		ArrayList<Book> books = BookDAO.getAllBooks();
+		for (Book book : books) {
+			System.out.println(book.getSalePrice());
 		}
 	}
 }
