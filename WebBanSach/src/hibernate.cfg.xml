@@ -34,14 +34,15 @@
 		<mapping class="Model.Author" />
 		<mapping class="Model.Book" />
 		<mapping class="Model.BookCategory" />
-		<mapping class="Model.Cart" />
+		<mapping class="Model.BookGrenre" />
 		
+		<mapping class="Model.Cart" />
 		<mapping class="Model.Customer" />
 		<mapping class="Model.DeliveryStatus" />
 		<mapping class="Model.Discount" />
 		<mapping class="Model.Image" />
-		<mapping class="Model.Order" />
 		
+		<mapping class="Model.Order" />
 		<mapping class="Model.Payment" />
 		<mapping class="Model.ShippingMethod" />
 		<mapping class="Model.Supplier" />

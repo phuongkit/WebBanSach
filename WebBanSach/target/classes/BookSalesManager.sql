@@ -35,6 +35,14 @@ CREATE TABLE BookCategory(
 )
 GO
 
+CREATE TABLE BookGrenre(
+	id NUMERIC(19, 0) IDENTITY(1,1) PRIMARY KEY,
+	name NVARCHAR(255) NOT NULL,
+	bookcategory_id NUMERIC(19, 0) NOT NULL,
+	FOREIGN KEY (bookcategory_id) REFERENCES BookGrenre (id)
+)
+GO
+
 CREATE TABLE Supplier(
 	id NUMERIC(19, 0) IDENTITY(1,1) PRIMARY KEY,
 	name NVARCHAR(255) NOT NULL,
@@ -56,10 +64,10 @@ CREATE TABLE Book(
 	quantity_sold NUMERIC(19, 0) NOT NULL,
 	sale_price NUMERIC(19, 0) NOT NULL,
 	author_id NUMERIC(19, 0) NOT NULL,
-	bookcategory_id NUMERIC(19, 0) NOT NULL,
+	bookgrenre_id NUMERIC(19, 0) NOT NULL,
 	supplier_id NUMERIC(19, 0) NOT NULL,
 	FOREIGN KEY (author_id) REFERENCES Author (id),
-	FOREIGN KEY (bookcategory_id) REFERENCES BookCategory (id),
+	FOREIGN KEY (bookgrenre_id) REFERENCES BookGrenre (id),
 	FOREIGN KEY (supplier_id) REFERENCES Supplier (id)
 )
 GO

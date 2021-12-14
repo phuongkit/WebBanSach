@@ -71,7 +71,7 @@
                   		<tr>
                   			<td><c:out value="${s.id}"></c:out></td>
                   			<td><c:out value="${s.name}"></c:out></td>
-                  			<td><c:out value="${s.bookCategory.id}"></c:out></td>
+                  			<td><c:out value="${s.bookGrenre.id}"></c:out></td>
                   			<td><c:out value="${s.author.id}"></c:out></td>
                   			<td><c:out value="${s.supplier.id}"></c:out></td>
                   			<td><c:out value="${s.createdAt}"></c:out></td>

@@ -42,10 +42,10 @@ public class Book implements Serializable {
 	@ManyToOne
 	private Author author;
 
-	//bi-directional many-to-one association to BookCategory
+	//bi-directional many-to-one association to BookGrenre
 	@ManyToOne
-	@JoinColumn(name="bookcategory_id")
-	private BookCategory bookCategory;
+	@JoinColumn(name="bookgrenre_id")
+	private BookGrenre bookGrenre;
 
 	//bi-directional many-to-one association to Supplier
 	@ManyToOne
@@ -138,12 +138,12 @@ public class Book implements Serializable {
 		this.author = author;
 	}
 
-	public BookCategory getBookCategory() {
-		return this.bookCategory;
+	public BookGrenre getBookGrenre() {
+		return this.bookGrenre;
 	}
 
-	public void setBookCategory(BookCategory bookCategory) {
-		this.bookCategory = bookCategory;
+	public void setBookGrenre(BookGrenre bookGrenre) {
+		this.bookGrenre = bookGrenre;
 	}
 
 	public Supplier getSupplier() {
