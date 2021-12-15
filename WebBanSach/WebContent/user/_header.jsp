@@ -67,7 +67,7 @@
 								<div class="info-logout">
 									<a class="nav-link text-dark text-uppercase username"
 										href="index.jsp">${loginedUser.username}</a> <a
-										class="nav-link text-dark logout" href="" id="exit">Thoát <i
+										class="nav-link text-dark logout" href="exit">Thoát <i
 										class="fas fa-sign-out-alt"></i></a>
 								</div></li>
 						</div>
@@ -201,11 +201,4 @@
 		</div>
 	</div>
 </div>
-<script>
-    var input = document.getElementById('exit');
-    input.onclick = function(){
-    	<c:set scope="request" var="loginedUser" value="null" />;
-    	alert("Hello! I am an alert box!!");
-    };
-</script>
 </html>
