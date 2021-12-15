@@ -245,7 +245,15 @@ INSERT INTO BookGrenre VALUES(N'Đông Y - Cổ Truyền',11);
 
 INSERT INTO BookCategory VALUES(N'Các Loại Sách Khác');--12
 
-INSERT INTO Image VALUES(N'default.jpg', DEFAULT, NULL)
+INSERT INTO Image VALUES(N'default.jpg', DEFAULT, NULL);
+
+INSERT INTO Author VALUES(N'Paulo Coelho');
+
+INSERT INTO Supplier VALUES(N'NXB Hội Nhà Văn', N'Hà Nội', DEFAULT, 'nxbhnv@gmail.com', '0384032', DEFAULT);
+
+INSERT INTO Book VALUES(N'Nhà Giả Kim', N'', DEFAULT, 50000, 400, 200, 67000, 1, 20, 1, DEFAULT);
+
+INSERT INTO Cart VALUES(DEFAULT, 5, 1, 1);
 
 INSERT INTO Account VALUES(N'admin', N'123456', DEFAULT, 1);
 
