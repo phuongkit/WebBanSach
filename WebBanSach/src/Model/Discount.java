@@ -33,7 +33,7 @@ public class Discount implements Serializable {
 	//bi-directional many-to-many association to Book
 	@ManyToMany
 	@JoinTable(
-		name="book_discounts"
+		name="Book_Discounts"
 		, joinColumns={
 			@JoinColumn(name="discount_id")
 			}

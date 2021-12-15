@@ -4,22 +4,23 @@ GO
 USE BookSalesManager
 GO
 
+CREATE TABLE Account(
+	id NUMERIC(19, 0) IDENTITY(1,1) PRIMARY KEY,
+	username VARCHAR(255) NOT NULL UNIQUE,
+	password VARCHAR(15) NOT NULL,
+	created_at DATETIME NOT NULL DEFAULT GETDATE(),
+	permission BIT NOT NULL DEFAULT 0 --1:admin 0:customer
+)
+GO
+
 CREATE TABLE Customer(
 	id NUMERIC(19, 0) IDENTITY(1,1) PRIMARY KEY,
 	fullname NVARCHAR(255) NOT NULL,
 	email VARCHAR(50) NOT NULL,
 	phone VARCHAR(15) NOT NULL,
-	address NVARCHAR(255) NOT NULL
-)
-GO
-
-CREATE TABLE Account(
-	id NUMERIC(19, 0) IDENTITY(1,1) PRIMARY KEY,
-	username VARCHAR(255) NOT NULL UNIQUE,
-	created_at DATETIME NOT NULL DEFAULT GETDATE(),
-	password VARCHAR(15) NOT NULL,
-	customer_id NUMERIC(19, 0) NOT NULL,
-	FOREIGN KEY (customer_id) REFERENCES Customer (id)
+	address NVARCHAR(255) NOT NULL,
+	account_id NUMERIC(19, 0) NOT NULL,
+	FOREIGN KEY (account_id) REFERENCES Account (id)
 )
 GO
 
@@ -39,7 +40,7 @@ CREATE TABLE BookGrenre(
 	id NUMERIC(19, 0) IDENTITY(1,1) PRIMARY KEY,
 	name NVARCHAR(255) NOT NULL,
 	bookcategory_id NUMERIC(19, 0) NOT NULL,
-	FOREIGN KEY (bookcategory_id) REFERENCES BookGrenre (id)
+	FOREIGN KEY (bookcategory_id) REFERENCES BookCategory (id)
 )
 GO
 
@@ -51,6 +52,14 @@ CREATE TABLE Supplier(
 	email VARCHAR(255) NOT NULL,
 	phone VARCHAR(15) NOT NULL,
 	trust_level NVARCHAR(255) NOT NULL DEFAULT N'Bình thường'
+)
+GO
+
+CREATE TABLE Image(
+	id NUMERIC(19, 0) IDENTITY(1,1) PRIMARY KEY,
+	name NVARCHAR(255) NOT NULL UNIQUE,
+	created_at DATETIME NOT NULL DEFAULT GETDATE(),
+	book_id NUMERIC(19, 0)
 )
 GO
 
@@ -66,31 +75,26 @@ CREATE TABLE Book(
 	author_id NUMERIC(19, 0) NOT NULL,
 	bookgrenre_id NUMERIC(19, 0) NOT NULL,
 	supplier_id NUMERIC(19, 0) NOT NULL,
+	image_id NUMERIC(19, 0) NOT NULL DEFAULT 1, -- image default
 	FOREIGN KEY (author_id) REFERENCES Author (id),
 	FOREIGN KEY (bookgrenre_id) REFERENCES BookGrenre (id),
-	FOREIGN KEY (supplier_id) REFERENCES Supplier (id)
+	FOREIGN KEY (supplier_id) REFERENCES Supplier (id),
+	FOREIGN KEY (image_id) REFERENCES Image (id)
 )
 GO
 
-CREATE TABLE Image(
-	id NUMERIC(19, 0) IDENTITY(1,1) PRIMARY KEY,
-	name NVARCHAR(255) NOT NULL UNIQUE,
-	created_at DATETIME NOT NULL DEFAULT GETDATE(),
-	book_id NUMERIC(19, 0) NOT NULL,
-	FOREIGN KEY (book_id) REFERENCES Book (id)
-)
-GO
+ALTER TABLE Image ADD FOREIGN KEY (book_id) REFERENCES Book(id); 
 
 CREATE TABLE Discount(
 	id NUMERIC(19, 0) IDENTITY(1,1) PRIMARY KEY,
 	name NVARCHAR(255) NOT NULL,
-	created_at DATETIME NULL DEFAULT GETDATE(),
-	expired_at DATETIME NULL DEFAULT DATEADD(MONTH, 1, GETDATE()),
+	created_at DATETIME NOT NULL DEFAULT GETDATE(),
+	expired_at DATETIME NOT NULL DEFAULT DATEADD(MONTH, 1, GETDATE()), -- expire 1 month
 	percent_sale float NOT NULL DEFAULT 10
 )
 GO
 
-CREATE TABLE book_discounts(
+CREATE TABLE Book_Discounts(
 	book_id NUMERIC(19, 0) NOT NULL,
 	discount_id NUMERIC(19, 0) NOT NULL,
 	PRIMARY KEY (book_id, discount_id),
@@ -123,11 +127,11 @@ CREATE TABLE Orders(
 	delivery_fullname NVARCHAR(255) NOT NULL,
 	delivery_phone VARCHAR(15) NOT NULL,
 	delivery_address NVARCHAR(255) NOT NULL,
-	customer_id NUMERIC(19, 0) NOT NULL,
+	account_id NUMERIC(19, 0) NOT NULL,
 	payment_id NUMERIC(19, 0) NOT NULL,
 	shippingmethod_id NUMERIC(19, 0) NOT NULL,
 	deliverystatus_id NUMERIC(19, 0) NOT NULL,
-	FOREIGN KEY (customer_id) REFERENCES Customer (id),
+	FOREIGN KEY (account_id) REFERENCES Account (id),
 	FOREIGN KEY (payment_id) REFERENCES Payment (id),
 	FOREIGN KEY (shippingmethod_id) REFERENCES ShippingMethod (id),
 	FOREIGN KEY (deliverystatus_id) REFERENCES DeliveryStatus (id)
@@ -139,11 +143,19 @@ CREATE TABLE Cart(
 	created_at DATETIME NOT NULL DEFAULT GETDATE(),
 	quantity NUMERIC(19, 0) NOT NULL DEFAULT 1,
 	book_id NUMERIC(19, 0) NOT NULL,
-	customer_id NUMERIC(19, 0) NOT NULL,
-	order_id NUMERIC(19, 0) DEFAULT 0,
+	account_id NUMERIC(19, 0) NOT NULL,
 	FOREIGN KEY (book_id) REFERENCES Book (id),
-	FOREIGN KEY (customer_id) REFERENCES Customer (id),
-	FOREIGN KEY (order_id) REFERENCES Orders (id)
+	FOREIGN KEY (account_id) REFERENCES Account (id)
+)
+GO
+
+CREATE TABLE Order_Carts(
+	id NUMERIC(19, 0) IDENTITY(1,1) PRIMARY KEY,
+	quantity NUMERIC(19, 0) NOT NULL DEFAULT 1,
+	order_id NUMERIC(19, 0) NOT NULL,
+	cart_id NUMERIC(19, 0) NOT NULL,
+	FOREIGN KEY (order_id) REFERENCES Orders (id),
+	FOREIGN KEY (cart_id) REFERENCES Cart (id)
 )
 GO
 
@@ -233,6 +245,8 @@ INSERT INTO BookGrenre VALUES(N'Đông Y - Cổ Truyền',11);
 
 INSERT INTO BookCategory VALUES(N'Các Loại Sách Khác');--12
 
-INSERT INTO Customer VALUES(N'Minh Phương', N'phuongdorc@gmail.com', N'0395682717', N'Long An');
+INSERT INTO Image VALUES(N'default.jpg', DEFAULT, NULL)
 
-INSERT INTO Account VALUES(N'admin', DEFAULT, N'123456', 1);
+INSERT INTO Account VALUES(N'admin', N'123456', DEFAULT, 1);
+
+INSERT INTO Customer VALUES(N'Minh Phương', N'phuongdorc@gmail.com', N'0395682717', N'Long An', 1);

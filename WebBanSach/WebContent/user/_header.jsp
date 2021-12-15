@@ -55,6 +55,12 @@
 									data-toggle="modal" data-target="#formdangnhap">Đăng nhập</a>
 							</div>
 						</div>
+						<li class="nav-item giohang"><a href="gio-hang.html"
+							class="btn btn-secondary rounded-circle"> <i
+								class="fa fa-shopping-cart"></i>
+								<div class="cart-amount">0</div>
+						</a> <a class="nav-link text-dark giohang text-uppercase"
+							href="gio-hang.html" style="display: inline-block">Giỏ Hàng</a></li>
 				</c:when>
 				<c:otherwise>
 					<!-- ô thông tin tài khoản nút đăng xuất và giỏ hàng trên header  -->
@@ -71,14 +77,14 @@
 										class="fas fa-sign-out-alt"></i></a>
 								</div></li>
 						</div>
+						<li class="nav-item giohang"><a href="gio-hang.html"
+							class="btn btn-secondary rounded-circle"> <i
+								class="fa fa-shopping-cart"></i>
+								<div class="cart-amount">0</div>
+						</a> <a class="nav-link text-dark giohang text-uppercase"
+							href="gio-hang.html" style="display: inline-block">Giỏ Hàng</a></li>
 				</c:otherwise>
 			</c:choose>
-			<li class="nav-item giohang"><a href="gio-hang.html"
-				class="btn btn-secondary rounded-circle"> <i
-					class="fa fa-shopping-cart"></i>
-					<div class="cart-amount">0</div>
-			</a> <a class="nav-link text-dark giohang text-uppercase"
-				href="gio-hang.html" style="display: inline-block">Giỏ Hàng</a></li>
 			</ul>
 		</div>
 	</div>
@@ -164,7 +170,8 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="form-signin" class="form-signin mt-2" method="POST" action="${pageContext.request.contextPath}/login">
+				<form id="form-signin" class="form-signin mt-2" method="POST"
+					action="${pageContext.request.contextPath}/login">
 					<div class="form-label-group">
 						<input type="text" class="form-control"
 							placeholder="Nhập tên đăng nhập" name="username"
