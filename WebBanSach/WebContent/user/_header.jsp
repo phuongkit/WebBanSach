@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="utils.MyUtils"%>
+<%@page import="DAO.CartDAO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -80,7 +81,7 @@
 						<li class="nav-item giohang"><a href="gio-hang.html"
 							class="btn btn-secondary rounded-circle"> <i
 								class="fa fa-shopping-cart"></i>
-								<div class="cart-amount">0</div>
+								<div class="cart-amount">${CartDAO.getCountCartNotOrderByUsername(loginedUser.id)}</div>
 						</a> <a class="nav-link text-dark giohang text-uppercase"
 							href="gio-hang.html" style="display: inline-block">Giỏ Hàng</a></li>
 				</c:otherwise>

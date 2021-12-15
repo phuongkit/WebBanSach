@@ -152,21 +152,21 @@ public class CartDAO {
 		}
 		return cart;
 	}
-	public static int getCountCartNotOrderByUsername(String username) {
+	public static int getCountCartNotOrderByUsername(long account_id) {
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		Session session = factory.getCurrentSession();
 		Transaction transaction = null;
-		int Count = 0;
+		int count = 0;
 		try {
 			transaction = session.beginTransaction();
 
-//			String sql = "from " + Cart.class.getName() " c inner join "
-//
-//			Query<Cart> query = session.createQuery(sql);
-//
-//			carts = (ArrayList<Cart>) query.getResultList();
-//
-//			cart = session.get(Cart.class, id);
+			String sql = "from " + Cart.class.getName() + " where account_id=:account_id and quantity > 0";
+
+			Query<Cart> query = session.createQuery(sql);
+
+			query.setParameter("account_id", account_id);
+			
+			count = query.getResultList().size();
 
 			transaction.commit();
 
@@ -178,6 +178,6 @@ public class CartDAO {
 				transaction.rollback();
 			}
 		}
-		return Count;
+		return count;
 	}
 }

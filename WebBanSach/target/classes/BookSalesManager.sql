@@ -149,11 +149,11 @@ CREATE TABLE Cart(
 )
 GO
 
-CREATE TABLE order_carts(
+CREATE TABLE Order_Carts(
+	id NUMERIC(19, 0) IDENTITY(1,1) PRIMARY KEY,
+	quantity NUMERIC(19, 0) NOT NULL DEFAULT 1,
 	order_id NUMERIC(19, 0) NOT NULL,
 	cart_id NUMERIC(19, 0) NOT NULL,
-	quantity NUMERIC(19, 0) NOT NULL DEFAULT 1,
-	PRIMARY KEY (order_id, cart_id),
 	FOREIGN KEY (order_id) REFERENCES Orders (id),
 	FOREIGN KEY (cart_id) REFERENCES Cart (id)
 )
