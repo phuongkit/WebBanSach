@@ -232,3 +232,7 @@ INSERT INTO BookGrenre VALUES(N'Thực Dưỡng',11);
 INSERT INTO BookGrenre VALUES(N'Đông Y - Cổ Truyền',11);
 
 INSERT INTO BookCategory VALUES(N'Các Loại Sách Khác');--12
+
+INSERT INTO Customer VALUES(N'Minh Phương', N'phuongdorc@gmail.com', N'0395682717', N'Long An');
+
+INSERT INTO Account VALUES(N'admin', DEFAULT, N'123456', 1);

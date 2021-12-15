@@ -25,10 +25,6 @@ li.nav-item a{
     transition: 0.2s;
 }
 
-li.nav-item:hover a {
-    color: #F5A623!important;
-}
-
 a.nav-link {
     padding-top: 8px;
 }
@@ -225,7 +221,10 @@ label.error {
 
 /* het css cho form dang nhap dangky */
 
-
+.info-logout a.nav-link {
+	margin: 0 0 0 0px !important;
+    padding: 100px!important;
+}
 
 /* .duoinavbar  */
 .duoinavbar{

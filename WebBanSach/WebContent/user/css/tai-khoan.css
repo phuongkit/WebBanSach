@@ -5,12 +5,6 @@
 }
 
 
-
-
-li.nav-item.account {
-    margin-top: 7px;
-}
-
 .info-logout a.nav-link {
     margin: 0 0 0 6px;
     padding: 0!important;
@@ -19,8 +13,6 @@ li.nav-item.account {
 a.nav-link:hover {
     color: #F5A623!important;
 }
-
-
 
 .header-khoi-sp {
     border-bottom: 1px solid #e5e5e5;
@@ -379,7 +371,6 @@ label.error {
 }
 
 .categorycontent ul li ul{
-    display: none;
     height: 387px;
     width: 750px;
     border: 1px solid #d1d1d1;
@@ -445,10 +436,6 @@ ul li a.header{
 
 .categorycontent ul li ul .content li a:hover{
     color: #F5A623;
-}
-
-.categorycontent{
-    display: none;
 }
 
 .categoryheader:hover .categorycontent{
@@ -993,13 +980,6 @@ h6.card-title.ten {
         border-bottom: 1px dashed #CF111A;
         padding-bottom: 0.5rem;
         margin-right:8px;
-    }
-    .categorycontent{
-        display: none;
-    }
-
-    .categoryheader:hover .categorycontent{
-        display: none;
     }
 }
 

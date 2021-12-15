@@ -1,7 +1,7 @@
 package servlets.user;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.sql.Connection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,11 +9,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import DAO.BookCategoryDAO;
-import DAO.BookDAO;
-import Model.Book;
-import Model.BookCategory;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import DAO.AccountDAO;
+import Model.Account;
+import utils.HibernateUtils;
+import utils.MyUtils;
 
 /**
  * Servlet implementation class indexServlet
@@ -36,10 +40,11 @@ public class homeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//		request.getRequestDispatcher("/admin/index.jsp").forward(request, response);
-//		ArrayList<BookCategory> bookCategories = BookCategoryDAO.getAllBookCategories();
-//
-//		request.setAttribute("bookCategories", bookCategories);
-		
+		//		ArrayList<BookCategory> bookCategories = BookCategoryDAO.getAllBookCategories();
+		//
+		//		request.setAttribute("bookCategories", bookCategories);
+//		HttpSession session = request.getSession();
+//		MyUtils.deleteLoginedUser(session);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/user/index.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -50,11 +55,5 @@ public class homeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-	}
-	public static void main(String[] args) {
-		ArrayList<Book> books = BookDAO.getAllBooks();
-		for (Book book : books) {
-			System.out.println(book.getSalePrice());
-		}
 	}
 }
