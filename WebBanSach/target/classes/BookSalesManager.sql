@@ -245,6 +245,7 @@ INSERT INTO BookGrenre VALUES(N'Đông Y - Cổ Truyền',11);
 
 INSERT INTO BookCategory VALUES(N'Các Loại Sách Khác');--12
 
+<<<<<<< HEAD
 INSERT INTO Image VALUES(N'default.jpg', DEFAULT, NULL);
 
 INSERT INTO Author VALUES(N'Paulo Coelho');
@@ -255,6 +256,10 @@ INSERT INTO Book VALUES(N'Nhà Giả Kim', N'', DEFAULT, 50000, 400, 200, 67000,
 
 INSERT INTO Cart VALUES(DEFAULT, 5, 1, 1);
 
+=======
+INSERT INTO Image VALUES(N'default.jpg', DEFAULT, NULL)
+
+>>>>>>> 2f6af7fc3bcdf5009bd9e1e86a184ac5003cb289
 INSERT INTO Account VALUES(N'admin', N'123456', DEFAULT, 1);
 
 INSERT INTO Customer VALUES(N'Minh Phương', N'phuongdorc@gmail.com', N'0395682717', N'Long An', 1);

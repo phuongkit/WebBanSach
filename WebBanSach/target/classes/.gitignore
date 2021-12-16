@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /BookSalesManager.sql
 /DAO/
 /Model/
@@ -5,4 +6,9 @@
 /filter/
 /hibernate.cfg.xml
 /servlets/
+=======
+/servlets/
+/DAO/
+/Model/
+>>>>>>> 2f6af7fc3bcdf5009bd9e1e86a184ac5003cb289
 /utils/
