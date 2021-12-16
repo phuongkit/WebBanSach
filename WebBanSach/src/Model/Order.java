@@ -32,13 +32,13 @@ public class Order implements Serializable {
 	@Column(name="delivery_phone")
 	private String deliveryPhone;
 
-	//bi-directional many-to-one association to Cart
+	//bi-directional many-to-one association to Order_Cart
 	@OneToMany(mappedBy="order")
-	private List<Cart> carts;
+	private List<Order_Cart> orderCarts;
 
-	//bi-directional many-to-one association to Customer
+	//bi-directional many-to-one association to Account
 	@ManyToOne
-	private Customer customer;
+	private Account account;
 
 	//bi-directional many-to-one association to DeliveryStatus
 	@ManyToOne
@@ -97,34 +97,34 @@ public class Order implements Serializable {
 		this.deliveryPhone = deliveryPhone;
 	}
 
-	public List<Cart> getCarts() {
-		return this.carts;
+	public List<Order_Cart> getOrderCarts() {
+		return this.orderCarts;
 	}
 
-	public void setCarts(List<Cart> carts) {
-		this.carts = carts;
+	public void setOrderCarts(List<Order_Cart> orderCarts) {
+		this.orderCarts = orderCarts;
 	}
 
-	public Cart addCart(Cart cart) {
-		getCarts().add(cart);
-		cart.setOrder(this);
+	public Order_Cart addOrderCart(Order_Cart orderCart) {
+		getOrderCarts().add(orderCart);
+		orderCart.setOrder(this);
 
-		return cart;
+		return orderCart;
 	}
 
-	public Cart removeCart(Cart cart) {
-		getCarts().remove(cart);
-		cart.setOrder(null);
+	public Order_Cart removeOrderCart(Order_Cart orderCart) {
+		getOrderCarts().remove(orderCart);
+		orderCart.setOrder(null);
 
-		return cart;
+		return orderCart;
 	}
 
-	public Customer getCustomer() {
-		return this.customer;
+	public Account getAccount() {
+		return this.account;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 	public DeliveryStatus getDeliveryStatus() {

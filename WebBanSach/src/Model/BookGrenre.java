@@ -24,14 +24,10 @@ public class BookGrenre implements Serializable {
 	@OneToMany(mappedBy="bookGrenre")
 	private List<Book> books;
 
-	//bi-directional many-to-one association to BookGrenre
+	//bi-directional many-to-one association to BookCategory
 	@ManyToOne
 	@JoinColumn(name="bookcategory_id")
-	private BookGrenre bookGrenre;
-
-	//bi-directional many-to-one association to BookGrenre
-	@OneToMany(mappedBy="bookGrenre")
-	private List<BookGrenre> bookGrenres;
+	private BookCategory bookCategory;
 
 	public BookGrenre() {
 	}
@@ -74,34 +70,12 @@ public class BookGrenre implements Serializable {
 		return book;
 	}
 
-	public BookGrenre getBookGrenre() {
-		return this.bookGrenre;
+	public BookCategory getBookCategory() {
+		return this.bookCategory;
 	}
 
-	public void setBookGrenre(BookGrenre bookGrenre) {
-		this.bookGrenre = bookGrenre;
-	}
-
-	public List<BookGrenre> getBookGrenres() {
-		return this.bookGrenres;
-	}
-
-	public void setBookGrenres(List<BookGrenre> bookGrenres) {
-		this.bookGrenres = bookGrenres;
-	}
-
-	public BookGrenre addBookGrenre(BookGrenre bookGrenre) {
-		getBookGrenres().add(bookGrenre);
-		bookGrenre.setBookGrenre(this);
-
-		return bookGrenre;
-	}
-
-	public BookGrenre removeBookGrenre(BookGrenre bookGrenre) {
-		getBookGrenres().remove(bookGrenre);
-		bookGrenre.setBookGrenre(null);
-
-		return bookGrenre;
+	public void setBookCategory(BookCategory bookCategory) {
+		this.bookCategory = bookCategory;
 	}
 
 }

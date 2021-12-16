@@ -3,6 +3,7 @@ package Model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 
 /**
@@ -22,6 +23,10 @@ public class Image implements Serializable {
 	private Timestamp createdAt;
 
 	private String name;
+
+	//bi-directional many-to-one association to Book
+	@OneToMany(mappedBy="image")
+	private List<Book> books;
 
 	//bi-directional many-to-one association to Book
 	@ManyToOne
@@ -52,6 +57,28 @@ public class Image implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Book> getBooks() {
+		return this.books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
+
+	public Book addBook(Book book) {
+		getBooks().add(book);
+		book.setImage(this);
+
+		return book;
+	}
+
+	public Book removeBook(Book book) {
+		getBooks().remove(book);
+		book.setImage(null);
+
+		return book;
 	}
 
 	public Book getBook() {

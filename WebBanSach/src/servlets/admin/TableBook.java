@@ -9,8 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DAO.AuthorDAO;
 import DAO.BookDAO;
+import DAO.BookGrenreDAO;
+import DAO.SupplierDAO;
+import Model.Author;
 import Model.Book;
+import Model.BookGrenre;
+import Model.Supplier;
 
 /**
  * Servlet implementation class TableBook
@@ -35,8 +41,16 @@ public class TableBook extends HttpServlet {
 //		ArrayList<Sach> listBook = utils.DBUtils.getAllBook();
 		
 		ArrayList<Book> books = BookDAO.getAllBooks();
+		ArrayList<BookGrenre> bookGrenres = BookGrenreDAO.getAllBookGrenres();
+		ArrayList<Supplier> suppliers = SupplierDAO.getAllSuppliers();
+		ArrayList<Author> authors = AuthorDAO.getAllAuthors();
+		
 		request.setAttribute("books", books);
-		request.getRequestDispatcher("/admin/tableBook.jsp").forward(request, response);
+		request.setAttribute("bookGrenres", bookGrenres);
+		request.setAttribute("suppliers", suppliers);
+		request.setAttribute("authors", authors);
+		
+		request.getRequestDispatcher("tableBook.jsp").forward(request, response);
 	}
 
 	/**

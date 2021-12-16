@@ -48,9 +48,17 @@ public class Book implements Serializable {
 	@JoinColumn(name="bookgrenre_id")
 	private BookGrenre bookGrenre;
 
+	//bi-directional many-to-one association to Image
+	@ManyToOne
+	private Image image;
+
 	//bi-directional many-to-one association to Supplier
 	@ManyToOne
 	private Supplier supplier;
+
+	//bi-directional many-to-many association to Discount
+	@ManyToMany(mappedBy="books")
+	private List<Discount> discounts;
 
 	//bi-directional many-to-one association to Cart
 	@OneToMany(mappedBy="book")
@@ -59,10 +67,6 @@ public class Book implements Serializable {
 	//bi-directional many-to-one association to Image
 	@OneToMany(mappedBy="book")
 	private List<Image> images;
-
-	//bi-directional many-to-many association to Discount
-	@ManyToMany(mappedBy="books")
-	private List<Discount> discounts;
 
 	public Book() {
 	}
@@ -147,12 +151,28 @@ public class Book implements Serializable {
 		this.bookGrenre = bookGrenre;
 	}
 
+	public Image getImage() {
+		return this.image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+
 	public Supplier getSupplier() {
 		return this.supplier;
 	}
 
 	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
+	}
+
+	public List<Discount> getDiscounts() {
+		return this.discounts;
+	}
+
+	public void setDiscounts(List<Discount> discounts) {
+		this.discounts = discounts;
 	}
 
 	public List<Cart> getCarts() {
@@ -197,14 +217,6 @@ public class Book implements Serializable {
 		image.setBook(null);
 
 		return image;
-	}
-
-	public List<Discount> getDiscounts() {
-		return this.discounts;
-	}
-
-	public void setDiscounts(List<Discount> discounts) {
-		this.discounts = discounts;
 	}
 
 }

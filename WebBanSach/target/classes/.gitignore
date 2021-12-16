@@ -1,6 +1,8 @@
+/BookSalesManager.sql
 /DAO/
 /Model/
 /beans/
 /filter/
+/hibernate.cfg.xml
 /servlets/
 /utils/

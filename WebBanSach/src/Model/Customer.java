@@ -2,7 +2,6 @@ package Model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -27,16 +26,8 @@ public class Customer implements Serializable {
 	private String phone;
 
 	//bi-directional many-to-one association to Account
-	@OneToMany(mappedBy="customer")
-	private List<Account> accounts;
-
-	//bi-directional many-to-one association to Cart
-	@OneToMany(mappedBy="customer")
-	private List<Cart> carts;
-
-	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="customer")
-	private List<Order> orders;
+	@ManyToOne
+	private Account account;
 
 	public Customer() {
 	}
@@ -81,70 +72,12 @@ public class Customer implements Serializable {
 		this.phone = phone;
 	}
 
-	public List<Account> getAccounts() {
-		return this.accounts;
+	public Account getAccount() {
+		return this.account;
 	}
 
-	public void setAccounts(List<Account> accounts) {
-		this.accounts = accounts;
-	}
-
-	public Account addAccount(Account account) {
-		getAccounts().add(account);
-		account.setCustomer(this);
-
-		return account;
-	}
-
-	public Account removeAccount(Account account) {
-		getAccounts().remove(account);
-		account.setCustomer(null);
-
-		return account;
-	}
-
-	public List<Cart> getCarts() {
-		return this.carts;
-	}
-
-	public void setCarts(List<Cart> carts) {
-		this.carts = carts;
-	}
-
-	public Cart addCart(Cart cart) {
-		getCarts().add(cart);
-		cart.setCustomer(this);
-
-		return cart;
-	}
-
-	public Cart removeCart(Cart cart) {
-		getCarts().remove(cart);
-		cart.setCustomer(null);
-
-		return cart;
-	}
-
-	public List<Order> getOrders() {
-		return this.orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
-
-	public Order addOrder(Order order) {
-		getOrders().add(order);
-		order.setCustomer(this);
-
-		return order;
-	}
-
-	public Order removeOrder(Order order) {
-		getOrders().remove(order);
-		order.setCustomer(null);
-
-		return order;
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 }
