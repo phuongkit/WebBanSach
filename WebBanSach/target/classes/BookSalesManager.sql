@@ -159,6 +159,10 @@ CREATE TABLE Order_Carts(
 )
 GO
 
+INSERT INTO Account VALUES(N'admin', N'123456', DEFAULT, 1);
+
+INSERT INTO Customer VALUES(N'Minh Phương', N'phuongdorc@gmail.com', N'0395682717', N'Long An', 1);
+
 INSERT INTO BookCategory VALUES(N'Sách Kinh Tế - Kỹ Năng');--1
 INSERT INTO BookGrenre VALUES(N'Kinh Tế - Chính Trị',1);
 INSERT INTO BookGrenre VALUES(N'Sách Khởi Nghiệp',1);
@@ -245,8 +249,16 @@ INSERT INTO BookGrenre VALUES(N'Đông Y - Cổ Truyền',11);
 
 INSERT INTO BookCategory VALUES(N'Các Loại Sách Khác');--12
 
-INSERT INTO Image VALUES(N'default.jpg', DEFAULT, NULL)
+INSERT INTO Image VALUES(N'default.jpg', DEFAULT, NULL);
+INSERT INTO Image VALUES(N'NhaGiaKim.jpg', DEFAULT, 1);
+INSERT INTO Image VALUES(N'NhaGiaKim_01.jpg', DEFAULT, 1);
+INSERT INTO Image VALUES(N'NhaGiaKim_02.jpg', DEFAULT, 1);
 
-INSERT INTO Account VALUES(N'admin', N'123456', DEFAULT, 1);
 
-INSERT INTO Customer VALUES(N'Minh Phương', N'phuongdorc@gmail.com', N'0395682717', N'Long An', 1);
+INSERT INTO Author VALUES(N'Paulo Coelho');
+
+INSERT INTO Supplier VALUES(N'NXB Hội Nhà Văn', N'Hà Nội', DEFAULT, 'nxbhnv@gmail.com', '0384032', DEFAULT);
+
+INSERT INTO Book VALUES(N'Nhà Giả Kim', N'', DEFAULT, 50000, 400, 200, 67000, 1, 20, 1, DEFAULT);
+
+INSERT INTO Cart VALUES(DEFAULT, 5, 1, 1);

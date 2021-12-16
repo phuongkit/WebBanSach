@@ -83,28 +83,6 @@ public class BookDAO {
 		}
 	}
 	
-	public static void deleteBook(Book book) {
-		SessionFactory factory = HibernateUtils.getSessionFactory();
-		Session session = factory.getCurrentSession();
-		Transaction transaction = null;
-		try {
-			transaction = session.beginTransaction();
-			
-			session.delete(book);
-			
-			transaction.commit();
-			
-			session.close();
-			
-		} catch (Exception e) 
-		{
-			e.printStackTrace();
-			if(transaction != null) {
-				transaction.rollback();
-			}
-		}
-	}
-	
 	public static void deleteBook(long id) {
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		Session session = factory.getCurrentSession();
@@ -129,6 +107,29 @@ public class BookDAO {
 			}
 		}
 	}
+	public static void deleteBook(Book book) {
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		Transaction transaction = null;
+		try {
+			transaction = session.beginTransaction();
+			
+			session.delete(book);
+			
+			transaction.commit();
+			
+			session.close();
+			
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+			if(transaction != null) {
+				transaction.rollback();
+			}
+		}
+	}
+	
+	
 	
 	public static Book getBookByID(long id) {
 		SessionFactory factory = HibernateUtils.getSessionFactory();

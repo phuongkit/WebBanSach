@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@page import = "servlets.admin.TableBook" %>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix ="c" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -49,14 +49,16 @@
         <div class="col-md-12">
           <div class="tile">         	
             <div class="tile-body">           
-              <div class="table-responsive">             
+              <div class="table-responsive"> 
+              	<a href ="#addNewBook" class="btn btn-outline-success btn-lg mb-2 " data-toggle="modal" ><i class="fas fa-plus-circle"></i>Thêm mới</i></a>            
                 <table class="table table-hover table-bordered" id="sampleTable">               
                   <thead>             
                     <tr>   
                       <th>Mã Sách</th>
                       <th>Tên Sách</th>
-                      <th>Mã Loại Sách</th>
-                      <th>Mã Tác Giả</th>
+                      <th>Mô tả</th>
+                      <th>Loại Sách</th>
+                      <th>Tác Giả</th>
                       <th>Nhà Xuất Bản</th>
                       <th>Ngày Tạo</th>
                       <th>Số Lượng Đã Bán</th>
@@ -71,16 +73,19 @@
                   		<tr>
                   			<td><c:out value="${s.id}"></c:out></td>
                   			<td><c:out value="${s.name}"></c:out></td>
-                  			<td><c:out value="${s.bookGrenre.id}"></c:out></td>
-                  			<td><c:out value="${s.author.id}"></c:out></td>
-                  			<td><c:out value="${s.supplier.id}"></c:out></td>
+                  			<td><c:out value="${s.description}"></c:out></td>
+                  			<td><c:out value="${s.bookGrenre.name}"></c:out></td>
+                  			<td><c:out value="${s.author.name}"></c:out></td>
+                  			<td><c:out value="${s.supplier.name}"></c:out></td>
                   			<td><c:out value="${s.createdAt}"></c:out></td>
                   			<td><c:out value="${s.quantitySold}"></c:out></td>
                   			<td><c:out value="${s.quantityAvailable}"></c:out></td>
                   			<td><c:out value="${s.salePrice}"></c:out></td>
                   			<td><c:out value="${s.purchasePrice}"></c:out></td>
-                  			<td><button><i class="fas fa-minus-circle"></i></button>
-                  				<button><i class="fas fa-edit"></i></button></td>
+                  			<td>
+                  				<a href="BookControl?action=delete&sid=${s.id}"class="btn btn-danger btn-sm btn-block"><i class="fas fa-minus-circle"></i></a>
+                  				<a href="#editBook" data-toggle="modal" class="btn btn-primary btn-sm btn-block"><i class="fas fa-edit"></i></a>
+                  			</td>
                   		</tr>
                   		</c:forEach>
                   </tbody>
@@ -91,6 +96,120 @@
         </div>
       </div>
     </main>
+    <div id="addNewBook" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form method="post" action = "BookControl?action=add" >
+					<div class="modal-header">						
+						<h4 class="modal-title">Thêm mới sách</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Nhập tên sách" name = "name" required>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Mô tả" name = "description" required>
+						</div>
+						<div class="form-group">
+							<select class="form-control" id="book-select" name="bookgrenre">
+							    <option value="">Chọn loại sách</option>
+							    <c:forEach items="${bookGrenres}" var="b">
+							    	<option  value="${b.id}"><c:out value="${b.name}"></c:out></option>
+							    </c:forEach>
+							</select>
+						</div>
+						<div class="form-group">
+							<select class="form-control" id="book-select" name ="author">
+							    <option value="">Tác giả</option>
+							    <c:forEach items="${authors}" var="b">
+							    	<option value="${b.id}"><c:out value="${b.name}"></c:out></option>
+							    </c:forEach>
+							</select>
+						</div>
+						<div class="form-group">
+							<select class="form-control" id="book-select" name="supplier">
+							    <option value="">Nhà xuất bản</option>
+							    <c:forEach items="${suppliers}" var="b">
+							    	<option  value="${b.id}"><c:out value="${b.name}"></c:out></option>
+							    </c:forEach>				    
+							</select>
+						</div>
+						<div class="form-group">
+							<input type="number" class="form-control" placeholder="Số lượng" name ="quantity" required>
+						</div>
+						<div class="form-group">
+							<input type="number" class="form-control" placeholder="Nhập giá bán" name="sale_price" required>
+						</div>
+						<div class="form-group">
+							<input type="number" class="form-control" placeholder="Nhập giá mua" name="purchase_price" required>
+						</div>					
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-success" value="Add">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div id="editBook" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form method="post" action = "edit" >
+					<div class="modal-header">						
+						<h4 class="modal-title">Sửa thông tin sách</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Nhập tên sách" name = "name" required>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Mô tả" name = "description" required>
+						</div>
+						<div class="form-group">
+							<select class="form-control" id="book-select" name="bookgrenre">
+							    <option value="">Chọn loại sách</option>
+							    <c:forEach items="${bookGrenres}" var="b">
+							    	<option  value="${b.id}"><c:out value="${b.name}"></c:out></option>
+							    </c:forEach>
+							</select>
+						</div>
+						<div class="form-group">
+							<select class="form-control" id="book-select" name ="author">
+							    <option value="">Tác giả</option>
+							    <c:forEach items="${authors}" var="b">
+							    	<option value="${b.id}"><c:out value="${b.name}"></c:out></option>
+							    </c:forEach>
+							</select>
+						</div>
+						<div class="form-group">
+							<select class="form-control" id="book-select" name="supplier">
+							    <option value="">Nhà xuất bản</option>
+							    <c:forEach items="${suppliers}" var="b">
+							    	<option  value="${b.id}"><c:out value="${b.name}"></c:out></option>
+							    </c:forEach>				    
+							</select>
+						</div>
+						<div class="form-group">
+							<input type="number" class="form-control" placeholder="Số lượng" name ="quantity" required>
+						</div>
+						<div class="form-group">
+							<input type="number" class="form-control" placeholder="Nhập giá bán" name="sale_price" required>
+						</div>
+						<div class="form-group">
+							<input type="number" class="form-control" placeholder="Nhập giá mua" name="purchase_price" required>
+						</div>					
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-success" value="Edit">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
     <!-- Essential javascripts for application to work-->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>
