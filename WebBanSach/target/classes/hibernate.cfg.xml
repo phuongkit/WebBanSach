@@ -43,6 +43,7 @@
 		<mapping class="Model.Image" />
 		
 		<mapping class="Model.Order" />
+		<mapping class="Model.Order_Cart" />
 		<mapping class="Model.Payment" />
 		<mapping class="Model.ShippingMethod" />
 		<mapping class="Model.Supplier" />
