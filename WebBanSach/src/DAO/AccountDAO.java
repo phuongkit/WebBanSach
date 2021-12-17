@@ -31,10 +31,11 @@ public class AccountDAO {
 			
 			transaction.commit();
 			
-			session.close();
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
 		
 		return accounts;
@@ -49,7 +50,6 @@ public class AccountDAO {
 			session.save(account);
 			
 			transaction.commit();
-			session.close();
 			
 		} catch (Exception e) 
 		{
@@ -57,6 +57,8 @@ public class AccountDAO {
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 	}
 	public static void updateAccount(Account account) {
@@ -72,14 +74,14 @@ public class AccountDAO {
 			
 			transaction.commit();
 			
-			session.close();
-			
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 	}
 	
@@ -94,14 +96,14 @@ public class AccountDAO {
 			
 			transaction.commit();
 			
-			session.close();
-			
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 	}
 	
@@ -119,14 +121,14 @@ public class AccountDAO {
 			
 			transaction.commit();
 			
-			session.close();
-			
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 	}
 	
@@ -142,13 +144,13 @@ public class AccountDAO {
 			
 			transaction.commit();
 			
-			session.close();
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 		return account;
 	}
@@ -172,13 +174,13 @@ public class AccountDAO {
 			
 			transaction.commit();
 			
-			session.close();
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 		return account;
 	}

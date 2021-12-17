@@ -1,5 +1,6 @@
 package DAO;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.hibernate.Session;
@@ -8,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import Model.Book;
+import Model.Discount;
 import utils.HibernateUtils;
 
 public class BookDAO {
@@ -18,25 +20,26 @@ public class BookDAO {
 		ArrayList<Book> books = new ArrayList<Book>();
 		try {
 			transaction = session.beginTransaction();
-			
+
 			String sql = "from " + Book.class.getName();
-			
+
 			Query<Book> query = session.createQuery(sql);
-			
+
 			books = (ArrayList<Book>) query.getResultList();
-			
+
 			for (Book book : books) {
 				System.out.println("Book: " + book.getId() + " : "+ book.getName());
 			}
-			
+
 			transaction.commit();
-			
-			session.close();
+
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
-		
+
 		return books;
 	}
 	public static void insertBook(Book book) {
@@ -45,18 +48,19 @@ public class BookDAO {
 		Transaction transaction = null;
 		try {
 			transaction = session.beginTransaction();
-			
+
 			session.save(book);
-			
+
 			transaction.commit();
-			session.close();
-			
+
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 	}
 	public static void updateBook(Book book) {
@@ -65,24 +69,22 @@ public class BookDAO {
 		Transaction transaction = null;
 		try {
 			transaction = session.beginTransaction();
-			
+
 			session.saveOrUpdate(book);
-			
-//			int result = query.executeUpdate();
-			
+
 			transaction.commit();
-			
-			session.close();
-			
+
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 	}
-	
+
 	public static void deleteBook(long id) {
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		Session session = factory.getCurrentSession();
@@ -90,21 +92,21 @@ public class BookDAO {
 		Book book = null;
 		try {
 			transaction = session.beginTransaction();
-			
+
 			book = session.get(Book.class, id);
-			
+
 			session.delete(book);
-			
+
 			transaction.commit();
-			
-			session.close();
-			
+
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 	}
 	public static void deleteBook(Book book) {
@@ -113,24 +115,24 @@ public class BookDAO {
 		Transaction transaction = null;
 		try {
 			transaction = session.beginTransaction();
-			
+
 			session.delete(book);
-			
+
 			transaction.commit();
-			
-			session.close();
-			
+
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 	}
-	
-	
-	
+
+
+
 	public static Book getBookByID(long id) {
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		Session session = factory.getCurrentSession();
@@ -138,19 +140,84 @@ public class BookDAO {
 		Book book = null;
 		try {
 			transaction = session.beginTransaction();
-			
+
 			book = session.get(Book.class, id);
-			
+
 			transaction.commit();
-			
-			session.close();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 		return book;
+	}
+
+	public static ArrayList<Book> getAllBookOrderByNgayTao(){
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		ArrayList<Book> books = new ArrayList<Book>();
+		try {
+			transaction = session.beginTransaction();
+
+			String sql = "from " + Book.class.getName() + " order by createdAt desc";
+
+			Query<Book> query = session.createQuery(sql);
+
+			books = (ArrayList<Book>) query.getResultList();
+
+			transaction.commit();
+
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return books;
+	}
+
+	public static double getSalesByBookNotExpired(long book_id) {
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		Transaction transaction = null;
+		double sales = -1;
+		try {
+			transaction = session.beginTransaction();
+
+			String sql = "select max(d.percentSale) from " + Book.class.getName() + " b join b.discounts d"
+					+ " where b.id=:book_id"
+					+ " and DATEDIFF(DAY, d.createdAt, GETDATE()) >= 0"
+					+ " and DATEDIFF(DAY, GETDATE(), d.expiredAt) > 0";
+
+			Query query = session.createQuery(sql);
+
+			query.setParameter("book_id", book_id);
+
+			Object obj = query.getResultList().get(0);
+
+			if(obj == null) {
+				sales = -1;
+			}
+			else {
+				sales = (double) obj;
+			}
+
+			transaction.commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			if(transaction != null) {
+				transaction.rollback();
+			}
+		} finally {
+			session.close();
+		}
+		return sales;
 	}
 }

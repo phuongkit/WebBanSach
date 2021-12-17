@@ -1,45 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="servlets.user.homeServlet"%>
+<%@page import="DAO.BookDAO"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <title>Dealbook-Mua sách trực tuyến giá rẻ nhất</title>
-<meta name="description" content="Mua sách online hay, giá tốt nhất, combo sách hot bán chạy, giảm giá cực khủng cùng với những ưu đãi như miễn phí giao hàng, quà tặng miễn phí, đổi trả nhanh chóng. Đa dạng sản phẩm, đáp ứng mọi nhu cầu.">
-<meta name="keywords" content="nhà sách online, mua sách hay, sách hot, sách bán chạy, sách giảm giá nhiều">
+<meta name="description"
+	content="Mua sách online hay, giá tốt nhất, combo sách hot bán chạy, giảm giá cực khủng cùng với những ưu đãi như miễn phí giao hàng, quà tặng miễn phí, đổi trả nhanh chóng. Đa dạng sản phẩm, đáp ứng mọi nhu cầu.">
+<meta name="keywords"
+	content="nhà sách online, mua sách hay, sách hot, sách bán chạy, sách giảm giá nhiều">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+<script
+	src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
 <link rel="stylesheet" href="user/css/home.css">
 <link rel="stylesheet" href="user/css/tai-khoan.css">
 <script type="text/javascript" src="user/js/main.js"></script>
 <link rel="stylesheet" href="user/fontawesome_free_5.13.0/css/all.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 <link
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
 	rel="stylesheet">
-	
+
 <link rel="stylesheet" type="text/css" href="user/slick/slick.css" />
 <link rel="stylesheet" type="text/css" href="user/slick/slick-theme.css" />
 <script type="text/javascript" src="user/slick/slick.min.js"></script>
-<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+<script type="text/javascript"
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 <link rel="canonical" href="http://dealbook.xyz/">
-<meta name="google-site-verification" content="urDZLDaX8wQZ_-x8ztGIyHqwUQh2KRHvH9FhfoGtiEw" />
-<link rel="apple-touch-icon" sizes="180x180" href="user/favicon_io/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="user/favicon_io/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="user/favicon_io/favicon-16x16.png">
+<meta name="google-site-verification"
+	content="urDZLDaX8wQZ_-x8ztGIyHqwUQh2KRHvH9FhfoGtiEw" />
+<link rel="apple-touch-icon" sizes="180x180"
+	href="user/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32"
+	href="user/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="user/favicon_io/favicon-16x16.png">
 <link rel="manifest" href="user/favicon_io/site.webmanifest">
 <style>
 img[alt="www.000webhost.com"] {
@@ -71,246 +87,49 @@ img[alt="www.000webhost.com"] {
 					</div>
 				</div>
 				<div class="khoisanpham" style="padding-bottom: 2rem;">
-					<!-- 1 san pham -->
-					<div class="card">
-						<a href="Lap-trinh-ke-hoach-kinh-doanh-hieu-qua.html"
-							class="motsanpham" style="text-decoration: none; color: black;"
-							data-toggle="tooltip" data-placement="bottom"
-							title="Lập Kế Hoạch Kinh Doanh Hiệu Quả"> <img
-							class="card-img-top anh"
-							src="user/images/lap-ke-hoach-kinh-doanh-hieu-qua.jpg"
-							alt="lap-ke-hoach-kinh-doanh-hieu-qua">
-							<div class="card-body noidungsp mt-3">
-								<h3 class="card-title ten">Lập Kế Hoạch Kinh Doanh Hiệu Quả</h3>
-								<small class="tacgia text-muted">Brian Finch</small>
-								<div class="gia d-flex align-items-baseline">
-									<div class="giamoi">111.200 ₫</div>
-									<div class="giacu text-muted">139.000 ₫</div>
-									<div class="sale">-20%</div>
+					<c:forEach items="${newBooks}" var="nbs">
+						<!-- 1 san pham -->
+						<div class="card">
+							<a href="Lap-trinh-ke-hoach-kinh-doanh-hieu-qua.html"
+								class="motsanpham" style="text-decoration: none; color: black;"
+								d	ata-toggle="tooltip" data-placement="bottom"
+								title="${nbs.name}"> <img
+								class="card-img-top anh"
+								src="${"user/images/"}${nbs.image.name}"
+								width="206px"
+								height="206px"
+								onerror="this.onerror=null;this.src='${"user/images/default.jpg"}';"
+								alt="${nbs.name}">
+								<div class="card-body noidungsp mt-3">
+									<h3 class="card-title ten">${nbs.name}</h3>
+									<small class="tacgia text-muted">${nbs.author.name}</small>
+									<div class="gia d-flex align-items-baseline">
+										<c:set var="sales" value="${BookDAO.getSalesByBookNotExpired(nbs.id)}" />
+										<c:choose>
+											<c:when test="${sales != -1}">
+												<div class="giamoi">${nbs.salePrice*(100-sales)/100}₫</div>
+												<div class="giacu text-muted">${nbs.salePrice}₫</div>
+												<div class="sale">-${sales}%</div>
+											</c:when>
+											<c:otherwise>
+												<div class="giamoi text-muted">${nbs.salePrice}₫</div>
+											</c:otherwise>
+										</c:choose>
+									</div>
+									<div class="danhgia">
+										<ul class="d-flex" style="list-style: none;">
+											<li class="active"><i class="fa fa-star"></i></li>
+											<li class="active"><i class="fa fa-star"></i></li>
+											<li class="active"><i class="fa fa-star"></i></li>
+											<li class="active"><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><span class="text-muted">0 nhận xét</span></li>
+										</ul>
+									</div>
 								</div>
-								<div class="danhgia">
-									<ul class="d-flex" style="list-style: none;">
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li><i class="fa fa-star"></i></li>
-										<li><span class="text-muted">0 nhận xét</span></li>
-									</ul>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="card">
-						<a
-							href="Ma-bun-luu-manh-va-nhung-cau-chuyen-khac-cua-nguyen-tri.html"
-							class="motsanpham" style="text-decoration: none; color: black;"
-							data-toggle="tooltip" data-placement="bottom"
-							title="Ma Bùn Lưu Manh Và Những Câu Chuyện Khác Của Nguyễn
-                        Trí">
-							<img class="card-img-top anh"
-							src="user/images/ma-bun-luu-manh.jpg" alt="ma-bun-luu-manh">
-							<div class="card-body noidungsp mt-3">
-								<h3 class="card-title ten">Ma Bùn Lưu Manh Và Những Câu
-									Chuyện Khác Của Nguyễn Trí</h3>
-								<small class="tacgia text-muted">Nguyễn Trí</small>
-								<div class="gia d-flex align-items-baseline">
-									<div class="giamoi">68.000 ₫</div>
-									<div class="giacu text-muted">85.000 ₫</div>
-									<div class="sale">-20%</div>
-								</div>
-								<div class="danhgia">
-									<ul class="d-flex" style="list-style: none;">
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li><i class="fa fa-star"></i></li>
-										<li><span class="text-muted">0 nhận xét</span></li>
-									</ul>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="card">
-						<a href="#" class="motsanpham"
-							style="text-decoration: none; color: black;"
-							data-toggle="tooltip" data-placement="bottom"
-							title="Bank 4.0 - Giao dịch mọi nơi, không chỉ là ngân hàng">
-							<img class="card-img-top anh" src="user/images/bank-4.0.jpg"
-							alt="bank-4.0">
-							<div class="card-body noidungsp mt-3">
-								<h3 class="card-title ten">Bank 4.0 - Giao dịch mọi nơi,
-									không chỉ là ngân hàng</h3>
-								<small class="tacgia text-muted">Brett King</small>
-								<div class="gia d-flex align-items-baseline">
-									<div class="giamoi">111.200 ₫</div>
-									<div class="giacu text-muted">139.000 ₫</div>
-									<div class="sale">-20%</div>
-								</div>
-								<div class="danhgia">
-									<ul class="d-flex" style="list-style: none;">
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li><i class="fa fa-star"></i></li>
-										<li><span class="text-muted">0 nhận xét</span></li>
-									</ul>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="card">
-						<a href="#" class="motsanpham"
-							style="text-decoration: none; color: black;"
-							data-toggle="tooltip" data-placement="bottom"
-							title="Bộ Sách 500 Câu Chuyện Đạo Đức - Những Câu Chuyện
-                        Tình Thân (Bộ 8 Cuốn)">
-							<img class="card-img-top anh"
-							src="user/images/bo-sach-500-cau-chuyen-dao-duc.jpg"
-							alt="bo-sach-500-cau-chuyen-dao-duc">
-							<div class="card-body noidungsp mt-3">
-								<h3 class="card-title ten">Bộ Sách 500 Câu Chuyện Đạo Đức -
-									Những Câu Chuyện Tình Thân (Bộ 8 Cuốn)</h3>
-								<small class="tacgia text-muted">Nguyễn Hạnh - Trần Thị
-									Thanh Nguyên</small>
-								<div class="gia d-flex align-items-baseline">
-									<div class="giamoi">111.200 ₫</div>
-									<div class="giacu text-muted">139.000 ₫</div>
-									<div class="sale">-20%</div>
-								</div>
-								<div class="danhgia">
-									<ul class="d-flex" style="list-style: none;">
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li><i class="fa fa-star"></i></li>
-										<li><span class="text-muted">0 nhận xét</span></li>
-									</ul>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="card">
-						<a href="#" class="motsanpham"
-							style="text-decoration: none; color: black;"
-							data-toggle="tooltip" data-placement="bottom"
-							title="Lịch Sử Ung Thư - Hoàng Đế Của Bách Bệnh"> <img
-							class="card-img-top anh"
-							src="user/images/ung-thu-hoang-de-cua-bach-benh.jpg"
-							alt="ung-thu-hoang-de-cua-bach-benh">
-							<div class="card-body noidungsp mt-3">
-								<h3 class="card-title ten">Lịch Sử Ung Thư - Hoàng Đế Của
-									Bách Bệnh</h3>
-								<small class="tacgia text-muted">Siddhartha Mukherjee</small>
-								<div class="gia d-flex align-items-baseline">
-									<div class="giamoi">111.200 ₫</div>
-									<div class="giacu text-muted">139.000 ₫</div>
-									<div class="sale">-20%</div>
-								</div>
-								<div class="danhgia">
-									<ul class="d-flex" style="list-style: none;">
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li><i class="fa fa-star"></i></li>
-										<li><span class="text-muted">0 nhận xét</span></li>
-									</ul>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="card">
-						<a href="#" class="motsanpham"
-							style="text-decoration: none; color: black;"
-							data-toggle="tooltip" data-placement="bottom"
-							title="Cuốn Sách Khám Phá: Trời Đêm Huyền Diệu"> <img
-							class="card-img-top anh"
-							src="user/images/troi-dem-huyen-dieu.jpg"
-							alt="troi-dem-huyen-dieu">
-							<div class="card-body noidungsp mt-3">
-								<h3 class="card-title ten">Cuốn Sách Khám Phá: Trời Đêm
-									Huyền Diệu</h3>
-								<small class="tacgia text-muted">Disney Learning</small>
-								<div class="gia d-flex align-items-baseline">
-									<div class="giamoi">111.200 ₫</div>
-									<div class="giacu text-muted">139.000 ₫</div>
-									<div class="sale">-20%</div>
-								</div>
-								<div class="danhgia">
-									<ul class="d-flex" style="list-style: none;">
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li><i class="fa fa-star"></i></li>
-										<li><span class="text-muted">0 nhận xét</span></li>
-									</ul>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="card">
-						<a href="#" class="motsanpham"
-							style="text-decoration: none; color: black;"
-							data-toggle="tooltip" data-placement="bottom"
-							title="Bộ Sách Những Câu Chuyện Cho Con Thành Người Tử Tế (Bộ 5 Cuốn)">
-							<img class="card-img-top anh"
-							src="user/images/bo-sach-nhung-cau-chuyen-cho-con-thanh-nguoi-tu-te.jpg"
-							alt="bo-sach-nhung-cau-chuyen-cho-con-thanh-nguoi-tu-te">
-							<div class="card-body noidungsp mt-3">
-								<h3 class="card-title ten">Bộ Sách Những Câu Chuyện Cho Con
-									Thành Người Tử Tế (Bộ 5 Cuốn)</h3>
-								<small class="tacgia text-muted">Nhiều Tác Giả</small>
-								<div class="gia d-flex align-items-baseline">
-									<div class="giamoi">111.200 ₫</div>
-									<div class="giacu text-muted">139.000 ₫</div>
-									<div class="sale">-20%</div>
-								</div>
-								<div class="danhgia">
-									<ul class="d-flex" style="list-style: none;">
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li><i class="fa fa-star"></i></li>
-										<li><span class="text-muted">0 nhận xét</span></li>
-									</ul>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="card">
-						<a href="#" class="motsanpham"
-							style="text-decoration: none; color: black;"
-							data-toggle="tooltip" data-placement="bottom"
-							title="Lịch Sử Thế Giới"> <img class="card-img-top anh"
-							src="user/images/lich-su-the-gioi.jpg" alt="lich-su-the-gioi">
-							<div class="card-body noidungsp mt-3">
-								<h3 class="card-title ten">Lịch Sử Thế Giới</h3>
-								<small class="tacgia text-muted">Nam Phong tùng thư -
-									Phạm Quỳnh chủ nhiệm</small>
-								<div class="gia d-flex align-items-baseline">
-									<div class="giamoi">111.200 ₫</div>
-									<div class="giacu text-muted">139.000 ₫</div>
-									<div class="sale">-20%</div>
-								</div>
-								<div class="danhgia">
-									<ul class="d-flex" style="list-style: none;">
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li class="active"><i class="fa fa-star"></i></li>
-										<li><i class="fa fa-star"></i></li>
-										<li><span class="text-muted">0 nhận xét</span></li>
-									</ul>
-								</div>
-							</div>
-						</a>
-					</div>
+							</a>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
