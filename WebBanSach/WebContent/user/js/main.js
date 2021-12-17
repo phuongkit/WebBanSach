@@ -32,6 +32,15 @@ $(function () {
         ]
     });
 
+	$('.imageSlider').slick({
+        dots: false,
+        infinite: false,
+        speed: 300,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+		variableWidth: true
+
+    });
     //hieu ung header va nut backtotop
     $("#backtotop").click(function () {
         $("html, body").animate({ scrollTop: 0 }, 400);
@@ -308,14 +317,6 @@ $(function () {
         price: parseFloat($('.gia span.giamoi').text()),
         old_price:parseFloat($('.gia span.giacu').text()),
         inCart: 0
-    }
-
-    let carts = document.querySelector('.nutmua');
-    if (carts) {
-        carts.addEventListener('click', () => {
-            cartNumbers(product);
-            totalCost(product);
-        })
     }
 
     function onLoadCartNumbers() {

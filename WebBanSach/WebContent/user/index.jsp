@@ -90,7 +90,7 @@ img[alt="www.000webhost.com"] {
 					<c:forEach items="${newBooks}" var="nbs">
 						<!-- 1 san pham -->
 						<div class="card">
-							<a href="Lap-trinh-ke-hoach-kinh-doanh-hieu-qua.html"
+							<a href="book?action=&book_id=${nbs.id}"
 								class="motsanpham" style="text-decoration: none; color: black;"
 								d	ata-toggle="tooltip" data-placement="bottom"
 								title="${nbs.name}"> <img
@@ -152,7 +152,7 @@ img[alt="www.000webhost.com"] {
 					<c:forEach items="${bestSellingBooks}" var="bsb">
 						<!-- 1 san pham -->
 						<div class="card">
-							<a href="Lap-trinh-ke-hoach-kinh-doanh-hieu-qua.html"
+							<a href="book?action=&book_id=${bsb.id}"
 								class="motsanpham" style="text-decoration: none; color: black;"
 								d	ata-toggle="tooltip" data-placement="bottom"
 								title="${bsb.name}"> <img
@@ -214,7 +214,7 @@ img[alt="www.000webhost.com"] {
 					<c:forEach items="${bestDiscountBooks}" var="bdb">
 						<!-- 1 san pham -->
 						<div class="card">
-							<a href="Lap-trinh-ke-hoach-kinh-doanh-hieu-qua.html"
+							<a href="book?action=&book_id=${bdb.id}"
 								class="motsanpham" style="text-decoration: none; color: black;"
 								d	ata-toggle="tooltip" data-placement="bottom"
 								title="${bdb.name}"> <img

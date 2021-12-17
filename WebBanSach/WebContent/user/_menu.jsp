@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="user/css/tai-khoan.css">
 <!-- thanh "danh muc sach" đã được ẩn bên trong + hotline + ho tro truc tuyen -->
 <section class="duoinavbar">
 	<div class="container text-white">
@@ -64,19 +65,10 @@
 <section class="breadcrumbbar">
 	<div class="container">
 		<ol class="breadcrumb mb-0 p-0 bg-transparent">
-			<li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-			<li class="breadcrumb-item active"><a href="sach-kinh-te.html">Sách
-					kinh tế - kỹ năng</a></li>
+			<li class="breadcrumb-item"><a href="${pageContext.request.contextPath}">Trang chủ</a></li>
+			<li class="breadcrumb-item active"><a href="sach-kinh-te.html">${book.bookGrenre.name}</a></li>
 		</ol>
 	</div>
 </section>
-
-<!-- ảnh banner  -->
-<section class="banner">
-	<div class="container">
-		<a href="sach-moi-tuyen-chon.html"><img
-			src="images/banner-sach-ktkn.jpg" alt="banner-sach-ktkn"
-			class="img-fluid"></a>
-	</div>
 </section>
 </html>

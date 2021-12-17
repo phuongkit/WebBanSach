@@ -14,7 +14,7 @@
 <nav class="navbar navbar-expand-md bg-white navbar-light">
 	<div class="container">
 		<!-- logo  -->
-		<a class="navbar-brand" href="" style="color: #CF111A;"><b>DealBook</b>.xyz</a>
+		<a class="navbar-brand" href="${pageContext.request.contextPath}" style="color: #CF111A;"><b>DealBook</b>.xyz</a>
 
 		<!-- navbar-toggler  -->
 		<button class="navbar-toggler d-lg-none" type="button"
