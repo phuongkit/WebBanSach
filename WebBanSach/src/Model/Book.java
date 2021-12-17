@@ -70,7 +70,23 @@ public class Book implements Serializable {
 
 	public Book() {
 	}
-
+	
+	public Book(Book b) {
+		this.id = b.id;
+		this.name = b.name;
+		this.description = b.description;
+		this.createdAt = b.createdAt;
+		this.quantityAvailable = b.quantityAvailable;
+		this.quantitySold = b.quantitySold;
+		this.salePrice = b.salePrice;
+		this.purchasePrice = b.purchasePrice;
+		this.author = b.author;
+		this.bookGrenre = b.bookGrenre;
+		this.image = b.image;
+		this.carts = b.carts;
+		this.discounts = b.discounts;
+	}
+	
 	public long getId() {
 		return this.id;
 	}

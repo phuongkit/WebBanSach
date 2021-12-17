@@ -182,6 +182,64 @@ public class BookDAO {
 		return books;
 	}
 
+	public static ArrayList<Book> getAllBookOrderByQuantitySold(){
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		ArrayList<Book> books = new ArrayList<Book>();
+		try {
+			transaction = session.beginTransaction();
+
+			String sql = "from " + Book.class.getName() + " order by quantitySold desc";
+
+			Query<Book> query = session.createQuery(sql);
+
+			books = (ArrayList<Book>) query.getResultList();
+
+			transaction.commit();
+
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return books;
+	}
+
+	public static ArrayList<Book> getAllBookOrderBySales(){
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		ArrayList<Book> books = new ArrayList<Book>();
+		try {
+			transaction = session.beginTransaction();
+
+			String sql = "select new " + Book.class.getName() + 
+					"(b)"
+					+ " from " + Book.class.getName() + " b join b.discounts d"
+					+ " where DATEDIFF(DAY, d.createdAt, GETDATE()) >= 0"
+					+ "	and DATEDIFF(DAY, GETDATE(), d.expiredAt) > 0"
+					+ " group by b"
+					+ " order by max(d.percentSale) desc";
+
+			Query<Book> query = session.createQuery(sql);
+
+			books = (ArrayList<Book>) query.getResultList();
+
+			transaction.commit();
+
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return books;
+	}
+
 	public static double getSalesByBookNotExpired(long book_id) {
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		Session session = factory.getCurrentSession();

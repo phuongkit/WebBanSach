@@ -1,12 +1,15 @@
 package utils;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import DAO.BookDAO;
+import Model.Book;
 
 public class Demo {
 	   public static void main(String[] args) {
-		   double sales = BookDAO.getSalesByBookNotExpired(1);
-		   System.out.print(sales);
+		   ArrayList<Book> books = BookDAO.getAllBookOrderBySales();
+		   for(Book book : books) {
+			   System.out.println("id:"+book.getId()+"-sales:"+BookDAO.getSalesByBookNotExpired(book.getId()));
+		   }
 	   }
 }

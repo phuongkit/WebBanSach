@@ -388,4 +388,29 @@ INSERT INTO Image VALUES(N'nghigiaulamgiau_110k-01_bia_sau.jpg', DEFAULT, 14);
 INSERT INTO Image VALUES(N'20.6.26_nghi_giau_lam_giau_11k.jpg', DEFAULT, 14);
 EXEC sp_setImageDefaultofBook N'Nghĩ Giàu & Làm Giàu', N'nghigiaulamgiau_110k-01_bia-1.jpg';
 
+USE BookSalesManager
+GO
+
+INSERT INTO Discount VALUES(N'Sales mừng web mới', DEFAULT, DEFAULT, 25);
+INSERT INTO Discount VALUES(N'Sales lớn tháng 12', DEFAULT, DEFAULT, 15);
+
+INSERT INTO Book_Discounts VALUES(1, 1);
+INSERT INTO Book_Discounts VALUES(2, 1);
+INSERT INTO Book_Discounts VALUES(3, 1);
+INSERT INTO Book_Discounts VALUES(4, 1);
+INSERT INTO Book_Discounts VALUES(5, 1);
+INSERT INTO Book_Discounts VALUES(6, 1);
+INSERT INTO Book_Discounts VALUES(7, 1);
+INSERT INTO Book_Discounts VALUES(8, 1);
+INSERT INTO Book_Discounts VALUES(9, 1);
+INSERT INTO Book_Discounts VALUES(10, 1);
+INSERT INTO Book_Discounts VALUES(1, 2);
+INSERT INTO Book_Discounts VALUES(2, 2);
+INSERT INTO Book_Discounts VALUES(3, 2);
+INSERT INTO Book_Discounts VALUES(4, 2);
+INSERT INTO Book_Discounts VALUES(11, 2);
+INSERT INTO Book_Discounts VALUES(12, 2);
+INSERT INTO Book_Discounts VALUES(13, 2);
+INSERT INTO Book_Discounts VALUES(14, 2);
+
 

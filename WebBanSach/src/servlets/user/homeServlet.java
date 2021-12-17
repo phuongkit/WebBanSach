@@ -35,8 +35,11 @@ public class homeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//		request.getRequestDispatcher("/admin/index.jsp").forward(request, response);
 		ArrayList<Book> newBooks = BookDAO.getAllBookOrderByNgayTao();
-
 		request.setAttribute("newBooks", newBooks);
+		ArrayList<Book> bestSellingBooks = BookDAO.getAllBookOrderByQuantitySold();
+		request.setAttribute("bestSellingBooks", bestSellingBooks);
+		ArrayList<Book> bestDiscountBooks = BookDAO.getAllBookOrderBySales();
+		request.setAttribute("bestDiscountBooks", bestDiscountBooks);
 //		HttpSession session = request.getSession();
 //		MyUtils.deleteLoginedUser(session);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/user/index.jsp");
