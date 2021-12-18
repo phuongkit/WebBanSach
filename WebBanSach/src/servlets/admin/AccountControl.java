@@ -38,6 +38,7 @@ public class AccountControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
 		switch (action) {
 		case "delete":delete(request,response);break;
@@ -81,6 +82,7 @@ public class AccountControl extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
 		switch (action) {
 		case "add":add(request,response);break;
