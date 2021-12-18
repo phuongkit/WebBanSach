@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -22,30 +22,33 @@
         <h1>Admin</h1>
       </div>
       <div class="login-box">
-        <form class="login-form" action="admin/Dashboard.jsp">
+     
+        <form class="login-form" action="admin" method="post">
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
           <div class="form-group">
             <label class="control-label">USERNAME</label>
-            <input class="form-control" type="text" placeholder="Email" autofocus>
+            <input class="form-control" type="text" name="username" placeholder="Email" autofocus required>
           </div>
           <div class="form-group">
             <label class="control-label">PASSWORD</label>
-            <input class="form-control" type="password" placeholder="Password">
+            <input class="form-control" type="password" name="password" placeholder="Password" required>
           </div>
           <div class="form-group">
             <div class="utility">
               <div class="animated-checkbox">
                 <label>
-                  <input type="checkbox"><span class="label-text">Stay Signed in</span>
+                  <input type="checkbox" name="rememberMe"><span class="label-text">Remember me</span>
                 </label>
               </div>
               <p class="semibold-text mb-2"><a href="#" data-toggle="flip">Forgot Password ?</a></p>
             </div>
           </div>
+          
           <div class="form-group btn-container">
-            <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
+            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
           </div>
         </form>
+        
         <form class="forget-form" action="index.html">
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>Forgot Password ?</h3>
           <div class="form-group">

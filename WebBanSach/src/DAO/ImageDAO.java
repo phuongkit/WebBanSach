@@ -177,5 +177,34 @@ public class ImageDAO {
 
 		return images;
 	}
+	public static Image getImageByName(String name) {
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		Transaction transaction = null;
+		Image image = null;
+		try {
+			transaction = session.beginTransaction();
+			
+			String sql = "from " + Image.class.getName() + " where name=:name";
+			
+			Query<Image> query = session.createQuery(sql);
+			
+			query.setParameter("name", name);
+			
+			
+			image = query.getSingleResult();
+			
+			transaction.commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			if(transaction != null) {
+				transaction.rollback();
+			}
+		} finally {
+			session.close();
+		}
+		return image;
+	}
 
 }

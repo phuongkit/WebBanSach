@@ -28,7 +28,7 @@
     <!-- Navbar-->
     <jsp:include page="_header.jsp"></jsp:include>
     <!-- Sidebar menu-->
-    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+    
     <jsp:include page="_menu.jsp"></jsp:include>
     <main class="app-content">
       <div class="app-title">
