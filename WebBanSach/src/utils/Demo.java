@@ -2,14 +2,19 @@ package utils;
 
 import java.util.ArrayList;
 
+import DAO.AccountDAO;
 import DAO.BookDAO;
+import Model.Account;
 import Model.Book;
 
 public class Demo {
 	   public static void main(String[] args) {
-		   ArrayList<Book> books = BookDAO.getAllBookOrderBySales();
-		   for(Book book : books) {
-			   System.out.println("id:"+book.getId()+"-sales:"+BookDAO.getSalesByBookNotExpired(book.getId()));
-		   }
+//		   Account account = AccountDAO.getAccountByID(1);
+//		   account.setUsername("admin");
+//		   account.setPassword("090909");
+//		   account.setPermission(Boolean.parseBoolean("0"));
+//		   AccountDAO.updateAccount(account);
+		   
+		  
 	   }
 }

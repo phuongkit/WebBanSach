@@ -19,23 +19,20 @@
 	<script type="text/javascript">
 	  $(document).ready(function(){
 			$('table .edit').on('click',function(){
-				var id = $('table .edit').parent().find('#id').val();
+				var id = $(this).parent().find('#id').val();
 				$.ajax({
 					type:'GET',
-					url:'BookControl',
+					url:'AccountControl',
 					data:{action:'show', sid:id},
 					success:function(data){
 						$('#editBook #sid').val(data[0]);
-						$('#editBook #name').val(data[1]);
-						$('#editBook #description').val(data[2]);
-						$('#editBook #bookgrenre option[value="'+data[3]+'"]').prop('selected', true);
-						$('#editBook #author').val(data[4]);
-						$('#editBook #supplier').val(data[5]);
-						$('#editBook #quantityAvailable').val(data[6]);
-						$('#editBook #quantitySold').val(data[7]);
-						$('#editBook #sale_price').val(data[8]);
-						$('#editBook #purchase_price').val(data[9]);
-						$('#editBook #image').attr('src', 'images/'+data[10]);
+						$('#editBook #username').val(data[1]);
+						$('#editBook #password').val(data[2]);	
+						//$('#editBook #permission').val(data[4]);
+						if(data[4]==true)
+							$('#editBook #permission').val('true');
+						else
+							$('#editBook #permission').val('false');
 						
 					}
 				});
@@ -103,7 +100,7 @@
                   			<td><c:out value="${s.username}"></c:out></td>
                   			<td><c:out value="${s.password}"></c:out></td>
                   			<td><c:out value="${s.createdAt}"></c:out></td>
-                  			<td><c:out value="${s.permission==true ? 'Admin': 'Customers'}"/></td>
+                  			<td><c:out value="${s.permission==true ? 'Admin': 'Customer'}"/></td>
                   			
                   			<td>
                   				<a href="AccountControl?action=delete&sid=${s.id}"class="btn btn-danger btn-sm btn-block"><i class="fas fa-minus-circle"></i></a>
@@ -124,55 +121,24 @@
     <div id="addNewBook" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form method="post" action = "BookControl?action=add" >
+				<form method="post" action = "AccountControl?action=add" >
 					<div class="modal-header">						
 						<h4 class="modal-title">Thêm mới sách</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Nhập tên sách" name = "name" required>
+							<input type="text" class="form-control" placeholder="Tài khoản" name = "username" required>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Mô tả" name = "description" required>
+							<input type="text" class="form-control" placeholder="Mật khẩu" name = "password" required>
 						</div>
 						<div class="form-group">
-							<select class="form-control" id="book-select" name="bookgrenre">
-							    <option value="">Chọn loại sách</option>
-							    <c:forEach items="${bookGrenres}" var="b">
-							    	<option  value="${b.id}"><c:out value="${b.name}"></c:out></option>
-							    </c:forEach>
-							</select>
-						</div>
-						<div class="form-group">
-							<select class="form-control" id="book-select" name ="author">
-							    <option value="">Tác giả</option>
-							    <c:forEach items="${authors}" var="b">
-							    	<option value="${b.id}"><c:out value="${b.name}"></c:out></option>
-							    </c:forEach>
-							</select>
-						</div>
-						<div class="form-group">
-							<select class="form-control" id="book-select" name="supplier">
-							    <option value="">Nhà xuất bản</option>
-							    <c:forEach items="${suppliers}" var="b">
-							    	<option  value="${b.id}"><c:out value="${b.name}"></c:out></option>
-							    </c:forEach>				    
-							</select>
-						</div>
-						<div class="form-group">
-							<input type="number" class="form-control" placeholder="Số lượng" name ="quantity" required>
-						</div>
-						<div class="form-group">
-							<input type="number" class="form-control" placeholder="Nhập giá bán" name="sale_price" required>
-						</div>
-						<div class="form-group">
-							<input type="number" class="form-control" placeholder="Nhập giá mua" name="purchase_price" required>
-						</div>	
-						<div class="form-group">
-							<input type="file" name="imageFile" id="imageFile" onchange="chooseFile(imageFile)" accept="image/x-png,image/gif,image/jpeg" />
-							<img src="" alt="" id="image" width="200" height="200">
-						</div>					
+							<select class="form-control" id="permission" name="permission">
+							    <option value="true">Admin</option>
+							    <option value="false">Customer</option>
+							</select>	
+						</div>				
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -185,63 +151,28 @@
 	<div id="editBook" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form method="post" action = "BookControl?action=edit" >
+				<form method="post" action = "AccountControl?action=edit" >
 					<div class="modal-header">						
 						<h4 class="modal-title">Sửa thông tin sách</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">					
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Nhập tên sách" name = "name" id = "name" value="${book.name}" required>
+							<input type="text" class="form-control" placeholder="Tài khoản" name = "username" id = "username" required>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Mô tả" name = "description" id="description" required>
+							<input type="text" class="form-control" placeholder="Mật khẩu" name = "password" id = "password" required>
 						</div>
 						<div class="form-group">
-							<select class="form-control" id="bookgrenre" name="bookgrenre" >
-							    <option id="bookgrenre" value="">Chọn loại sách</option>
-							    <c:forEach items="${bookGrenres}" var="b">
-							    	<option  value="${b.id}"><c:out value="${b.name}"></c:out></option>
-							    </c:forEach>
-							</select>
-						</div>
-						<div class="form-group">
-							<select class="form-control" name ="author" id ="author">
-							    <option value="">Tác giả</option>
-							    <c:forEach items="${authors}" var="b">
-							    	<option value="${b.id}"><c:out value="${b.name}"></c:out></option>
-							    </c:forEach>
-							</select>
-						</div>
-						<div class="form-group">
-							<select class="form-control" name="supplier" id="supplier">
-							    <option value="">Nhà xuất bản</option>
-							    <c:forEach items="${suppliers}" var="b">
-							    	<option  value="${b.id}"><c:out value="${b.name}"></c:out></option>
-							    </c:forEach>				    
-							</select>
-						</div>
-						
-						<div class="form-group">
-							<input type="number" class="form-control" placeholder="Số lượng hiện có" name ="quantityAvailable" id ="quantityAvailable" required>
-						</div>
-						<div class="form-group">
-							<input type="number" class="form-control" placeholder="Số lượng đã bán" name ="quantitySold" id ="quantitySold" required>
-						</div>
-						<div class="form-group">
-							<input type="number" class="form-control" placeholder="Nhập giá bán" name="sale_price" id="sale_price" required>
-						</div>
-						<div class="form-group">
-							<input type="number" class="form-control" placeholder="Nhập giá mua" name="purchase_price" id="purchase_price" required>
-						</div>
-						<div class="form-group">
-							<input type="file" name="imageFile" id="imageFile" onchange="chooseFile(imageFile)" accept="image/x-png,image/gif,image/jpeg" />
-							<img src="" alt="" id="image" width="200" height="200">
-						</div>					
+							<select class="form-control" id="permission" name="permission" id="permission">
+							    <option value="true">Admin</option>
+							    <option value="false">Customer</option>
+							</select>	
+						</div>				
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-success" name="id" name="id" value="Edit">
+						<input type="submit" class="btn btn-success" value="Edit">
 						<input type ="hidden" name="sid" id="sid">
 					</div>
 				</form>

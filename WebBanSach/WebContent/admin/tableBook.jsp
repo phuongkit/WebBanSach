@@ -31,7 +31,8 @@
 	<script type="text/javascript">
 	  $(document).ready(function(){
 			$('table .edit').on('click',function(){
-				var id = $('table .edit').parent().find('#id').val();
+				//var id = $('table .edit').parent().find('#id').val();
+				var id = $(this).parent().find('#id').val();
 				$.ajax({
 					type:'GET',
 					url:'BookControl',
