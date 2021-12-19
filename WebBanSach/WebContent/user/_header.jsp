@@ -9,6 +9,12 @@
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous"
 	src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v6.0"></script>
+<style>
+ 	.dropdown_1 {
+    position: relative;
+    margin-top: 0.5rem;
+}
+</style>
 
 <!-- header -->
 <nav class="navbar navbar-expand-md bg-white navbar-light">
@@ -27,15 +33,16 @@
 
 		<div class="collapse navbar-collapse" id="collapsibleNavId">
 			<!-- form tìm kiếm  -->
-			<form class="form-inline ml-auto my-2 my-lg-0 mr-3">
+				<form action="SearchServlet" method="POST" class="form-inline ml-auto my-2 my-lg-0 mr-3" >
 				<div class="input-group" style="width: 520px;">
-					<input type="text" class="form-control" aria-label="Small"
+					<input type="text" class="form-control" id="search_box" name="search_box" aria-label="Small"
 						placeholder="Nhập sách cần tìm kiếm...">
 					<div class="input-group-append">
-						<button type="button" class="btn"
+						<button name="book_id" id="book_id" type="submit" class="btn"
 							style="background-color: #CF111A; color: white;">
 							<i class="fa fa-search"></i>
 						</button>
+						
 					</div>
 				</div>
 			</form>
@@ -67,7 +74,7 @@
 				<c:otherwise>
 					<!-- ô thông tin tài khoản nút đăng xuất và giỏ hàng trên header  -->
 					<ul class="navbar-nav mb-1 ml-auto">
-						<div class="dropdown">
+						<div class="dropdown_1">
 							<li class="d-flex"><a href="#"
 								class="btn btn-secondary rounded-circle"> <i
 									class="fa fa-user"></i>

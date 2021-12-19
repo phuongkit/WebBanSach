@@ -1,15 +1,14 @@
 package DAO;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.query.Query;
 
 import Model.Book;
-import Model.Discount;
 import utils.HibernateUtils;
 
 public class BookDAO {
@@ -272,5 +271,57 @@ public class BookDAO {
 			session.close();
 		}
 		return sales;
+	}
+	public static ArrayList<Book> searchBookByName(String name) {
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		Transaction transaction = null;
+		ArrayList<Book> book = null;
+		try {
+			transaction = session.beginTransaction();
+			
+			String sql = "from " + Book.class.getName() + " where name like :name";
+			Query<Book> query = session.createQuery(sql);
+			query.setParameter("name", MatchMode.ANYWHERE.toMatchString(name));
+			
+			book = (ArrayList<Book>) query.getResultList();
+			
+			transaction.commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			if(transaction != null) {
+				transaction.rollback();
+			}
+		} finally {
+			session.close();
+		}
+		return book;
+	}
+	public static ArrayList<Book> getBookByGrenre(long id) {
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		Transaction transaction = null;
+		ArrayList<Book> book = null;
+		try {
+			transaction = session.beginTransaction();
+			
+			String sql = "from " + Book.class.getName() + " where bookgrenre_id =:id";
+			Query<Book> query = session.createQuery(sql);
+			query.setParameter("id", id);
+			
+			book = (ArrayList<Book>) query.getResultList();
+			
+			transaction.commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			if(transaction != null) {
+				transaction.rollback();
+			}
+		} finally {
+			session.close();
+		}
+		return book;
 	}
 }

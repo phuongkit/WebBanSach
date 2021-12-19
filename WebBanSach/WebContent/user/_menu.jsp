@@ -18,33 +18,28 @@
 					</div>
 					<!-- CATEGORIES -->
 					<div class="categorycontent">
-						<ul>
-							<c:forEach items="${BookCategoryDAO.getAllBookCategories()}"
-								var="bc">
-								<li><a href="#">${bc.name}</a><i
-									class="fa fa-chevron-right float-right"></i>
-									<ul>
-										<li class="liheader"><a href="#"
-											class="header text-uppercase">${bc.name}</a></li>
-										<c:set scope="request" var="bookGrenres"
-											value="${BookGrenreDAO.getAllBookGrenreByBookCategoryID(bc.id)}" />
-										<div class="content trai">
-											<c:forEach items="${bookGrenres}" begin="0"
-												end="${(bookGrenres.size()+1)/2-1}" var="bgr">
-												<li><a href="#">${bgr.name}</a></li>
-											</c:forEach>
-										</div>
-										<div class="content phai">
-											<c:forEach items="${bookGrenres}"
-												begin="${(bookGrenres.size()+1)/2}"
-												end="${bookGrenres.size()}" var="bgr">
-												<li><a href="#">${bgr.name}</a></li>
-											</c:forEach>
-										</div>
-									</ul></li>
-							</c:forEach>
-						</ul>
-					</div>
+					<ul>
+						<c:forEach items="${BookCategoryDAO.getAllBookCategories()}" var="bc">
+							<li><a href="#">${bc.name}</a><i
+								class="fa fa-chevron-right float-right"></i>
+								<ul>
+									<li class="liheader"><a href="#"
+										class="header text-uppercase">${bc.name}</a></li>
+									<c:set scope="request" var="bookGrenres" value="${BookGrenreDAO.getAllBookGrenreByBookCategoryID(bc.id)}" />
+									<div class="content trai">
+										<c:forEach items="${bookGrenres}" begin="0" end="${(bookGrenres.size()+1)/2-1}" var="bgr">
+											<li><a href="SearchServlet?action=searchcatagories&id=${bgr.id}">${bgr.name}</a></li>
+										</c:forEach>
+									</div>
+									<div class="content phai">
+										<c:forEach items="${bookGrenres}" begin="${(bookGrenres.size()+1)/2}" end="${bookGrenres.size()}" var="bgr">
+											<li><a href="SearchServlet?action=searchcatagories&id=${bgr.id}">${bgr.name}</a></li>
+										</c:forEach>
+									</div>
+								</ul></li>
+						</c:forEach>
+					</ul>
+				</div>
 				</div>
 			</div>
 			<div class="col-md-5 ml-auto contact d-none d-md-block">
