@@ -154,41 +154,42 @@
 														</form>
 													</div>
 													<div class="tab-pane fade" id="nav-dangky" role="tabpanel"
-														aria-labelledby="nav-dangky-tab" method="POST"
-															action="${pageContext.request.contextPath}/login">
-														<form id="form-signup-cart" class="form-signin mt-2">
+														aria-labelledby="nav-dangky-tab">
+														<form id="form-signup-cart" class="form-signin mt-2" method="POST"
+														action="${pageContext.request.contextPath}/register">
 															<div class="form-label-group">
 																<input type="text" id="regFullName" class="form-control"
-																	placeholder="Nhập họ và tên" name="fullname" required
+																	placeholder="Nhập họ và tên" name="regFullName" required
 																	autofocus>
 															</div>
 															<div class="form-label-group">
 																<input type="text" id="regPhone" class="form-control"
-																	placeholder="Nhập số điện thoại" name="phone" required>
+																	placeholder="Nhập số điện thoại" name="regPhone" required>
 															</div>
 															<div class="form-label-group">
 																<input type="email" id="regEmail" class="form-control"
-																	placeholder="Nhập địa chỉ email" name="email" required>
+																	placeholder="Nhập địa chỉ email" name="regEmail" required>
 															</div>
-															
+
 															<div class="form-label-group">
 																<input type="text" id="regAddress" class="form-control"
-																	placeholder="Nhập địa chỉ" name="address" required>
+																	placeholder="Nhập địa chỉ" name="regAddress" required>
 															</div>
-															
+
 															<div class="form-label-group">
 																<input type="text" id="regUsername" class="form-control"
-																	placeholder="Nhập tên đăng nhập" name="username" required>
+																	placeholder="Nhập tên đăng nhập" name="regUsername"
+																	required>
 															</div>
-															
+
 															<div class="form-label-group">
 																<input type="password" id="regPassword"
 																	class="form-control" placeholder="Nhập mật khẩu"
-																	name="password" required>
+																	name="regPassword" required>
 															</div>
 															<div class="form-label-group mb-3">
 																<input type="password" id="regConfirmPassword"
-																	class="form-control" name="confirm_password"
+																	class="form-control" name="regconfirm_password"
 																	placeholder="Nhập lại mật khẩu" required>
 															</div>
 															<div class="custom-control custom-checkbox mb-3">
@@ -246,9 +247,11 @@
 													<div class="cart-item d-flex">
 														<c:set var="book" value="${cart.book}" />
 														<div style="margin: auto auto; display: flex;">
-														<input style="padding: 0 12px 0;" type="checkbox" value="Đặt hàng"> 
-														<label style="padding: 0 12px 16px;">Đặt</label>
-														</div> <a
+															<input style="padding: 0 12px 0;" type="checkbox"
+																value="Đặt hàng"> <label
+																style="padding: 0 12px 16px;">Đặt</label>
+														</div>
+														<a
 															href="${pageContext.request.contextPath}/book?action=&book_id=${book.id}"
 															class="img"> <img src="${"
 															user/images/"}${book.image.name}"
@@ -257,7 +260,9 @@
 														</a>
 														<div class="item-caption d-flex w-100">
 															<div class="item-info ml-3">
-																<a href="${pageContext.request.contextPath}/book?action=&book_id=${book.id}" class="ten">${book.name}</a>
+																<a
+																	href="${pageContext.request.contextPath}/book?action=&book_id=${book.id}"
+																	class="ten">${book.name}</a>
 																<div class="soluong d-flex">
 																	<div class="input-number input-group mb-3">
 																		<div class="input-group-prepend">
@@ -353,31 +358,19 @@
 														<form class="form-diachigiaohang">
 															<div class="form-label-group">
 																<input type="text" id="inputName" class="form-control"
-																	placeholder="Nhập họ và tên" name="name" required
-																	autofocus>
+																	placeholder="Nhập họ và tên" value="${orderName}"
+																	name="name" required autofocus>
 															</div>
 															<div class="form-label-group">
 																<input type="text" id="inputPhone" class="form-control"
-																	placeholder="Nhập số điện thoại" name="phone" required>
-															</div>
-															<div class="form-label-group">
-																<input type="email" id="inputEmail" class="form-control"
-																	placeholder="Nhập địa chỉ email" name="email" required>
+																	placeholder="Nhập số điện thoại" value="${orderPhone}"
+																	name="phone" required>
 															</div>
 															<div class="form-label-group">
 																<input type="text" id="inputAddress"
 																	class="form-control"
-																	placeholder="Nhập Địa chỉ giao hàng" name="address"
-																	required>
-															</div>
-															<div class="form-label-group">
-																<input type="text" id="inputCity" class="form-control"
-																	placeholder="Nhập Tỉnh/Thành phố" name="city" required>
-															</div>
-															<div class="form-label-group">
-																<input type="text" id="inputDistrict"
-																	class="form-control" placeholder="Nhập Quận/Huyện"
-																	name="district" required>
+																	placeholder="Nhập Địa chỉ giao hàng"
+																	value="${orderAddress}" name="address" required>
 															</div>
 															<div class="form-label-group">
 																<textarea type="text" id="inputNote"
@@ -408,33 +401,26 @@
 															<div class="goigiaohang">
 																<h6 class="header text-uppercase">Chọn gói giao
 																	hàng</h6>
-																<div class="option">
-																	<input type="radio" name="goigiaohang" id="ghtc"
-																		checked> <label for="ghtc">Giao hàng
-																		tiêu chuẩn</label>
-																	<p>Từ 1-3 ngày tại TP. Hồ Chí Minh; từ 3-5 ngày đối
-																		với các Tỉnh / Thành khác</p>
-																</div>
-																<div class="option">
-																	<input type="radio" name="goigiaohang" id="ghn">
-																	<label for="ghn">Giao hàng nhanh</label>
-																	<p>1 ngày tại TP. Hồ Chí Minh; từ 2-3 ngày đối với
-																		các Tỉnh / Thành khác</p>
-																</div>
+																<c:forEach items="${shippingMethods}"
+																	var="shippingMethod">
+																	<div class="option">
+																		<input type="radio" name="goigiaohang" id="ghtc"
+																			checked> <label for="ghtc">${shippingMethod.name}</label>
+																		<p>${shippingMethod.description}</p>
+																	</div>
+																</c:forEach>
 															</div>
 															<hr>
 															<div class="pttt">
 																<h6 class="header text-uppercase">Chọn phương thức
 																	thanh toán</h6>
-																<div class="option mb-2">
-																	<input type="radio" name="pttt" id="cod" checked>
-																	<label for="cod">Thanh toán bằng tiền mặt khi
-																		nhận hàng</label>
-																</div>
-																<div class="option option2">
-																	<input type="radio" name="pttt" id="atm"> <label
-																		for="atm" class="chuyenkhoan">Thanh toán
-																		chuyển khoản trước qua Thẻ ATM/Internet Banking</label>
+																<c:forEach items="${payments}" var="payment">
+																	<div class="option mb-2">
+																		<input type="radio" name="pttt" id="cod" checked>
+																		<label for="cod">${payment.name}</label>
+																	</div>
+																</c:forEach>
+																<div>
 																	<p class="mt-4">- Quý khách chỉ chuyển khoản khi
 																		được xác nhận có đủ sách qua điện thoại từ DealBook.</p>
 																	<p>- Thời gian chuyển khoản là trong tối đa 2 ngày
@@ -446,7 +432,7 @@
 																	</p>
 																	<p>
 																		- Xem thông tin chuyển khoản của NetaBooks <a
-																			href="phuong-thuc-thanh-toan.html">tại đây</a>
+																			href="#">tại đây</a>
 																	</p>
 																</div>
 															</div>
@@ -480,8 +466,8 @@
 
 	<!-- footer  -->
 	<jsp:include page="_footer.jsp"></jsp:include>
-	
-	
+
+
 
 </body>
 

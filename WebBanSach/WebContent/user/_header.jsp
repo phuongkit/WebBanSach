@@ -14,7 +14,8 @@
 <nav class="navbar navbar-expand-md bg-white navbar-light">
 	<div class="container">
 		<!-- logo  -->
-		<a class="navbar-brand" href="${pageContext.request.contextPath}" style="color: #CF111A;"><b>DealBook</b>.xyz</a>
+		<a class="navbar-brand" href="${pageContext.request.contextPath}"
+			style="color: #CF111A;"><b>DealBook</b>.xyz</a>
 
 		<!-- navbar-toggler  -->
 		<button class="navbar-toggler d-lg-none" type="button"
@@ -60,8 +61,8 @@
 							class="btn btn-secondary rounded-circle"> <i
 								class="fa fa-shopping-cart"></i>
 								<div class="cart-amount">0</div>
-						</a> <a class="nav-link text-dark giohang text-uppercase"
-							href="cart" style="display: inline-block">Giỏ Hàng</a></li>
+						</a> <a class="nav-link text-dark giohang text-uppercase" href="cart"
+							style="display: inline-block">Giỏ Hàng</a></li>
 				</c:when>
 				<c:otherwise>
 					<!-- ô thông tin tài khoản nút đăng xuất và giỏ hàng trên header  -->
@@ -73,7 +74,7 @@
 							</a>
 								<div class="info-logout">
 									<a class="nav-link text-dark text-uppercase username"
-										href="index.jsp">${loginedUser.username}</a> <a
+										href="${pageContext.request.contextPath}/account">${loginedUser.username}</a> <a
 										class="nav-link text-dark logout" href="exit">Thoát <i
 										class="fas fa-sign-out-alt"></i></a>
 								</div></li>
@@ -82,8 +83,8 @@
 							class="btn btn-secondary rounded-circle"> <i
 								class="fa fa-shopping-cart"></i>
 								<div class="cart-amount">${CartDAO.getCountCartNotOrderByAccount(loginedUser.id).size()}</div>
-						</a> <a class="nav-link text-dark giohang text-uppercase"
-							href="cart" style="display: inline-block">Giỏ Hàng</a></li>
+						</a> <a class="nav-link text-dark giohang text-uppercase" href="cart"
+							style="display: inline-block">Giỏ Hàng</a></li>
 				</c:otherwise>
 			</c:choose>
 			</ul>
@@ -112,26 +113,36 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form id="form-signup" class="form-signin mt-2">
+				<form id="form-signup" class="form-signin mt-2" method="POST"
+					action="${pageContext.request.contextPath}/register">
 					<div class="form-label-group">
 						<input type="text" class="form-control"
-							placeholder="Nhập họ và tên" name="name" required autofocus>
+							placeholder="Nhập họ và tên" name="regFullName" required
+							autofocus>
 					</div>
 					<div class="form-label-group">
 						<input type="text" class="form-control"
-							placeholder="Nhập số điện thoại" name="phone" required>
+							placeholder="Nhập số điện thoại" name="regPhone" required>
 					</div>
 					<div class="form-label-group">
 						<input type="email" class="form-control"
-							placeholder="Nhập địa chỉ email" name="email" required>
+							placeholder="Nhập địa chỉ email" name="regEmail" required>
 					</div>
 					<div class="form-label-group">
-						<input type="password" class="form-control"
-							placeholder="Nhập mật khẩu" name="password" required>
+						<input type="text" id="regAddress" class="form-control"
+							placeholder="Nhập địa chỉ" name="regAddress" required>
+					</div>
+					<div class="form-label-group">
+						<input type="text" id="regUsername" class="form-control"
+							placeholder="Nhập tên đăng nhập" name="regUsername" required>
+					</div>
+					<div class="form-label-group">
+						<input type="password" id="regPassword" class="form-control"
+							placeholder="Nhập mật khẩu" name="regPassword" required>
 					</div>
 					<div class="form-label-group mb-4">
-						<input type="password" class="form-control"
-							name="confirm_password" placeholder="Nhập lại mật khẩu" required>
+						<input type="password" class="form-control" placeholder="Nhập lại mật khẩu"
+							name="regconfirm_password" required>
 					</div>
 					<button
 						class="btn btn-lg btn-block btn-signin text-uppercase text-white mt-3"

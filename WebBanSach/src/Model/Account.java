@@ -22,6 +22,7 @@ public class Account implements Serializable {
 	@Column(name="created_at")
 	private Timestamp createdAt;
 
+	@Column(name="password")
 	private String password;
 
 	private boolean permission;

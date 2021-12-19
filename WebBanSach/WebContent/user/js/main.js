@@ -309,6 +309,86 @@ $(function () {
         }
     });
 
+	$("#update-account").validate({
+        rules: {
+            fullname: {
+                required: true,
+            },
+            phone: {
+                required: true,
+                minlength: 8
+            },
+			email: {
+                required: true,
+                email: true
+            },
+			address: {
+                required: true,
+                email: true
+            },
+            oldpassword: {
+                minlength: 6
+            },
+            newpassword: {
+                minlength: 6,
+            },
+			confirm_newpassword: {
+                minlength: 6,
+                equalTo: "#newpassword"
+            }
+        },
+        messages: {
+            fullname: {
+                required: "Vui lòng nhập họ và tên",
+            },
+            phone: {
+                required: "Vui lòng nhập số điện thoại",
+                minlength: "Số máy quý khách vừa nhập là số không có thực"
+            },
+			email: {
+                required: "Vui lòng nhập email",
+                minlength: "Email không hợp lệ",
+                email: "Vui lòng nhập email",
+            },
+			address: {
+                required: "Vui lòng nhập địa chỉ",
+            },
+            oldpassword: {
+                minlength: 'Vui lòng nhập ít nhất 6 kí tự'
+            },
+			newpassword: {
+                minlength: 'Vui lòng nhập ít nhất 6 kí tự'
+            },
+            confirm_newpassword: {
+                minlength: 'Vui lòng nhập ít nhất 6 kí tự',
+                equalTo: 'Mật khẩu không trùng'
+            }
+        }
+    });
+	
+	$("#form-signin-cart").validate({
+        rules: {
+            password: {
+                required: true,
+                minlength: 6
+            },
+            email: {
+                required: true,
+                email: true
+            }
+        },
+        messages: {
+            password: {
+                required: 'Vui lòng nhập mật khẩu',
+                minlength: 'Vui lòng nhập ít nhất 6 kí tự'
+            },
+            email: {
+                required: "Vui lòng nhập email",
+                minlength: "Email không hợp lệ",
+                email: "Vui lòng nhập email",
+            }
+        }
+    });
     // add to cart 
     let product =
     {

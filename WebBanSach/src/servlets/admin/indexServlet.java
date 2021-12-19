@@ -54,8 +54,6 @@ public class indexServlet extends HttpServlet {
 		String rememberMeStr = request.getParameter("rememberMe");
 		boolean remember = "Y".equals(rememberMeStr);
 		
-		System.out.println("\n \n" + username + "," + password + "\n \n");
-		
 		Account user = null;
 		boolean hasError = false;
 		String errorString = null;
@@ -67,11 +65,11 @@ public class indexServlet extends HttpServlet {
 			Connection conn = MyUtils.getStoredConnection(request);
 			try {
 				// Tìm user trong DB
-				user =  AccountDAO.getAccountByUsername(username, password);
+				user =  AccountDAO.getAccountByUsernamePassword(username, password);
 
 				if (user == null) {
 					hasError = true;
-					errorString = "User Nam or password failed";
+					errorString = "Username or password failed";
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -70,23 +70,25 @@ public class Book implements Serializable {
 
 	public Book() {
 	}
-	
-	public Book(Book b) {
-		this.id = b.id;
-		this.name = b.name;
-		this.description = b.description;
-		this.createdAt = b.createdAt;
-		this.quantityAvailable = b.quantityAvailable;
-		this.quantitySold = b.quantitySold;
-		this.salePrice = b.salePrice;
-		this.purchasePrice = b.purchasePrice;
-		this.author = b.author;
-		this.bookGrenre = b.bookGrenre;
-		this.image = b.image;
-		this.carts = b.carts;
-		this.discounts = b.discounts;
+
+	public Book(Book book) {
+		this.id = book.id;
+		this.name = book.name;
+		this.description = book.description;
+		this.createdAt = book.createdAt;
+		this.author = book.author;
+		this.bookGrenre = book.bookGrenre;
+		this.image = book.image;
+		this.images = book.images;
+		this.carts = book.carts;
+		this.discounts = book.discounts;
+		this.purchasePrice = book.purchasePrice;
+		this.salePrice = book.salePrice;
+		this.quantityAvailable = book.quantityAvailable;
+		this.quantitySold = book.quantitySold;
+		this.supplier=book.supplier;
 	}
-	
+
 	public long getId() {
 		return this.id;
 	}

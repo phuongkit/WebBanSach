@@ -19,6 +19,7 @@ public class Customer implements Serializable {
 
 	private String address;
 
+	@Column(name="email")
 	private String email;
 
 	private String fullname;
@@ -47,7 +48,7 @@ public class Customer implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
+	
 	public String getEmail() {
 		return this.email;
 	}

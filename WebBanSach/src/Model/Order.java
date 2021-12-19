@@ -32,9 +32,11 @@ public class Order implements Serializable {
 	@Column(name="delivery_phone")
 	private String deliveryPhone;
 
-	//bi-directional many-to-one association to Order_Cart
+	private String note;
+
+	//bi-directional many-to-one association to Cart
 	@OneToMany(mappedBy="order")
-	private List<Order_Cart> orderCarts;
+	private List<Cart> carts;
 
 	//bi-directional many-to-one association to Account
 	@ManyToOne
@@ -97,26 +99,34 @@ public class Order implements Serializable {
 		this.deliveryPhone = deliveryPhone;
 	}
 
-	public List<Order_Cart> getOrderCarts() {
-		return this.orderCarts;
+	public String getNote() {
+		return this.note;
 	}
 
-	public void setOrderCarts(List<Order_Cart> orderCarts) {
-		this.orderCarts = orderCarts;
+	public void setNote(String note) {
+		this.note = note;
 	}
 
-	public Order_Cart addOrderCart(Order_Cart orderCart) {
-		getOrderCarts().add(orderCart);
-		orderCart.setOrder(this);
-
-		return orderCart;
+	public List<Cart> getCarts() {
+		return this.carts;
 	}
 
-	public Order_Cart removeOrderCart(Order_Cart orderCart) {
-		getOrderCarts().remove(orderCart);
-		orderCart.setOrder(null);
+	public void setCarts(List<Cart> carts) {
+		this.carts = carts;
+	}
 
-		return orderCart;
+	public Cart addCart(Cart cart) {
+		getCarts().add(cart);
+		cart.setOrder(this);
+
+		return cart;
+	}
+
+	public Cart removeCart(Cart cart) {
+		getCarts().remove(cart);
+		cart.setOrder(null);
+
+		return cart;
 	}
 
 	public Account getAccount() {

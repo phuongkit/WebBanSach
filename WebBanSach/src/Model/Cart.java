@@ -4,7 +4,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.List;
 
 
 /**
@@ -33,9 +32,9 @@ public class Cart implements Serializable {
 	@ManyToOne
 	private Book book;
 
-	//bi-directional many-to-one association to Order_Cart
-	@OneToMany(mappedBy="cart")
-	private List<Order_Cart> orderCarts;
+	//bi-directional many-to-one association to Order
+	@ManyToOne
+	private Order order;
 
 	public Cart() {
 	}
@@ -80,26 +79,12 @@ public class Cart implements Serializable {
 		this.book = book;
 	}
 
-	public List<Order_Cart> getOrderCarts() {
-		return this.orderCarts;
+	public Order getOrder() {
+		return this.order;
 	}
 
-	public void setOrderCarts(List<Order_Cart> orderCarts) {
-		this.orderCarts = orderCarts;
-	}
-
-	public Order_Cart addOrderCart(Order_Cart orderCart) {
-		getOrderCarts().add(orderCart);
-		orderCart.setCart(this);
-
-		return orderCart;
-	}
-
-	public Order_Cart removeOrderCart(Order_Cart orderCart) {
-		getOrderCarts().remove(orderCart);
-		orderCart.setCart(null);
-
-		return orderCart;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 }

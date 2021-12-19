@@ -18,6 +18,11 @@ public class ShippingMethod implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@Column(name="Cost")
+	private double cost;
+
+	private String description;
+
 	private String name;
 
 	//bi-directional many-to-one association to Order
@@ -33,6 +38,22 @@ public class ShippingMethod implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public double getCost() {
+		return this.cost;
+	}
+
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getName() {

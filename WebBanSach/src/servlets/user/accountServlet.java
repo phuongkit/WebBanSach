@@ -11,27 +11,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DAO.CartDAO;
 import DAO.CustomerDAO;
-import DAO.PaymentDAO;
-import DAO.ShippingMethodDAO;
+import DAO.OrderDAO;
 import Model.Account;
 import Model.Cart;
 import Model.Customer;
-import Model.Payment;
-import Model.ShippingMethod;
+import Model.Order;
 
 /**
  * Servlet implementation class cartServlet
  */
-@WebServlet(urlPatterns = "/cart")
-public class cartServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/account")
+public class accountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public cartServlet() {
+	public accountServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -44,27 +41,20 @@ public class cartServlet extends HttpServlet {
 		Object obj = session.getAttribute("loginedUser");
 		ArrayList<Cart> carts = new ArrayList<Cart>();
 		if(obj != null) {
-			Account account = (Account)obj;
-			carts = CartDAO.getCountCartNotOrderByAccount(account.getId());
-			Customer customer = CustomerDAO.getCustomerByAccount(account.getId());
+			Account account = (Account)obj;Customer customer = CustomerDAO.getCustomerByAccount(account.getId());
 			if(customer != null) {
-				String fullname = customer.getFullname();
-				String phone = customer.getPhone();
-				String address = customer.getAddress();
-				request.setAttribute("orderName", fullname);
-				request.setAttribute("orderPhone", phone);
-				request.setAttribute("orderAddress", address);
+				ArrayList<Order> orders = OrderDAO.getAllOrderByAccount(account.getId());
+				
+				request.setAttribute("fullname", customer.getFullname());
+				request.setAttribute("phone", customer.getPhone());
+				request.setAttribute("email",  customer.getEmail());
+				request.setAttribute("address", customer.getAddress());
+				request.setAttribute("username", account.getUsername());
+				request.setAttribute("orders", orders);
 			}
 		}
-		request.setAttribute("carts", carts);
-		
-		ArrayList<ShippingMethod> shippingMethods = ShippingMethodDAO.getAllShippingMethods();
-		request.setAttribute("shippingMethods", shippingMethods);
-		
-		ArrayList<Payment> payments = PaymentDAO.getAllPayments();
-		request.setAttribute("payments", payments);
 
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/user/cart.jsp");
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/user/account.jsp");
 		dispatcher.forward(request, response);
 	}
 

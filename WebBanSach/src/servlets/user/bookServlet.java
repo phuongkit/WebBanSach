@@ -103,6 +103,7 @@ public class bookServlet extends HttpServlet {
 				cart.setBook(book);
 				cart.setQuantity(count);
 				cart.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+				cart.setOrder(null);
 				CartDAO.insertCart(cart);
 				result[0] = "Thêm vào giỏ hàng thành công!";
 			}

@@ -117,7 +117,9 @@ GO
 
 CREATE TABLE ShippingMethod(
 	id NUMERIC(19, 0) IDENTITY(1,1) PRIMARY KEY,
-	name NVARCHAR(255) NOT NULL
+	name NVARCHAR(255) NOT NULL,
+	description NVARCHAR(500) NOT NULL,
+	Cost FLOAT NOT NULL DEFAULT 5
 )
 GO
 
@@ -131,6 +133,7 @@ CREATE TABLE Orders(
 	payment_id NUMERIC(19, 0) NOT NULL,
 	shippingmethod_id NUMERIC(19, 0) NOT NULL,
 	deliverystatus_id NUMERIC(19, 0) NOT NULL,
+	note NVARCHAR(500),
 	FOREIGN KEY (account_id) REFERENCES Account (id),
 	FOREIGN KEY (payment_id) REFERENCES Payment (id),
 	FOREIGN KEY (shippingmethod_id) REFERENCES ShippingMethod (id),
@@ -144,18 +147,10 @@ CREATE TABLE Cart(
 	quantity NUMERIC(19, 0) NOT NULL DEFAULT 1,
 	book_id NUMERIC(19, 0) NOT NULL,
 	account_id NUMERIC(19, 0) NOT NULL,
+	order_id NUMERIC(19, 0) DEFAULT NULL,
 	FOREIGN KEY (book_id) REFERENCES Book (id),
-	FOREIGN KEY (account_id) REFERENCES Account (id)
-)
-GO
-
-CREATE TABLE Order_Carts(
-	id NUMERIC(19, 0) IDENTITY(1,1) PRIMARY KEY,
-	quantity NUMERIC(19, 0) NOT NULL DEFAULT 1,
-	order_id NUMERIC(19, 0) NOT NULL,
-	cart_id NUMERIC(19, 0) NOT NULL,
-	FOREIGN KEY (order_id) REFERENCES Orders (id),
-	FOREIGN KEY (cart_id) REFERENCES Cart (id)
+	FOREIGN KEY (account_id) REFERENCES Account (id),
+	FOREIGN KEY (order_id) REFERENCES Orders (id)
 )
 GO
 
@@ -271,10 +266,11 @@ INSERT INTO Author VALUES(N'Brian Finch');
 INSERT INTO Supplier VALUES(N'NXB Hội Nhà Văn', N'Hà Nội', DEFAULT, 'nxbhnv@gmail.com', '0384032', DEFAULT);
 INSERT INTO Supplier VALUES(N'Nhà Xuất Bản Thanh Niên', N'Hà Nội', DEFAULT, 'nxbtn@gmail.com', '0384032', DEFAULT);
 
+INSERT INTO Image VALUES(N'default.jpg', DEFAULT, NULL);
+
 INSERT INTO Book VALUES(N'Nhà Giả Kim', N'', DEFAULT, 50000, 400, 200, 67000, 1, 20, 1, DEFAULT);
 INSERT INTO Book VALUES(N'Lập Kế Hoạch Kinh Doanh Hiệu Quả', N'Khi bắt đầu thành lập doanh nghiệp hay mở rộng quy mô hoạt động, lập ra một bản kế hoạch kinh doanh là bước đi đầu tiên không thể thiếu. Bản kế hoạch kinh doanh càng được chuẩn bị kỹ lưỡng và lôi cuốn bao nhiêu, cơ hội ghi điểm trước các nhà đầu tư càng lớn bấy nhiêu.', DEFAULT, 100000, 300, 100, 120000, 2, 1, 2, DEFAULT);
 
-INSERT INTO Image VALUES(N'default.jpg', DEFAULT, NULL);
 INSERT INTO Image VALUES(N'NhaGiaKim.jpg', DEFAULT, 1);
 INSERT INTO Image VALUES(N'NhaGiaKim_01.jpg', DEFAULT, 1);
 INSERT INTO Image VALUES(N'NhaGiaKim_02.jpg', DEFAULT, 1);
@@ -285,7 +281,7 @@ INSERT INTO Image VALUES(N'lap-ke-hoach-kinh-doanh-hieu-qua-mt.jpg', DEFAULT, 2)
 EXEC sp_setImageDefaultofBook N'Nhà Giả Kim', N'NhaGiaKim.jpg';
 EXEC sp_setImageDefaultofBook N'Lập Kế Hoạch Kinh Doanh Hiệu Quả', N'lap-ke-hoach-kinh-doanh-hieu-qua.jpg';
 
-INSERT INTO Cart VALUES(DEFAULT, 5, 1, 1);
+INSERT INTO Cart VALUES(DEFAULT, 5, 1, 1, NULL);
 
 INSERT INTO Author VALUES(N'Riichiro Inagaki');
 INSERT INTO Supplier VALUES(N'NXB Kim Đồng', N'Hà Nội', DEFAULT, 'nxbkd@gmail.com', '056462', DEFAULT);
@@ -303,93 +299,90 @@ EXEC sp_setImageDefaultofBook N'Komi - Nữ Thần Sợ Giao Tiếp - Tập 2', 
 
 INSERT INTO Author VALUES(N'Mario Puzo');
 INSERT INTO Supplier VALUES(N'NXB Dân Trí', N'Hà Nội', DEFAULT, 'nxbdt@gmail.com', '0534542', DEFAULT);
-INSERT INTO Book VALUES(N'Bố Già (Đông A)', N'', DEFAULT, 80000, 150, 100, 88000, 6, 20, 5, DEFAULT);
-INSERT INTO Image VALUES(N'8936071673381.jpg', DEFAULT, 6);
-INSERT INTO Image VALUES(N'2019_09_19_10_59_54_1-390x510.gif', DEFAULT, 6);
-INSERT INTO Image VALUES(N'2019_09_19_10_59_54_2-390x510.gif', DEFAULT, 6);
-INSERT INTO Image VALUES(N'2019_09_19_10_59_54_3-390x510.gif', DEFAULT, 6);
-INSERT INTO Image VALUES(N'2019_09_19_10_59_54_4-390x510.gif', DEFAULT, 6);
-INSERT INTO Image VALUES(N'2019_09_19_10_59_54_5-390x510.gif', DEFAULT, 6);
-INSERT INTO Image VALUES(N'2019_09_19_10_59_54_6-390x510.gif', DEFAULT, 6);
-INSERT INTO Image VALUES(N'2019_09_19_10_59_54_7-390x510.gif', DEFAULT, 6);
-INSERT INTO Image VALUES(N'2019_09_19_10_59_54_8-390x510.gif', DEFAULT, 6);
+INSERT INTO Book VALUES(N'Bố Già (Đông A)', N'', DEFAULT, 80000, 150, 100, 88000, 5, 20, 4, DEFAULT);
+INSERT INTO Image VALUES(N'8936071673381.jpg', DEFAULT, 5);
+INSERT INTO Image VALUES(N'2019_09_19_10_59_54_1-390x510.gif', DEFAULT, 5);
+INSERT INTO Image VALUES(N'2019_09_19_10_59_54_2-390x510.gif', DEFAULT, 5);
+INSERT INTO Image VALUES(N'2019_09_19_10_59_54_3-390x510.gif', DEFAULT, 5);
+INSERT INTO Image VALUES(N'2019_09_19_10_59_54_4-390x510.gif', DEFAULT, 5);
+INSERT INTO Image VALUES(N'2019_09_19_10_59_54_5-390x510.gif', DEFAULT, 5);
+INSERT INTO Image VALUES(N'2019_09_19_10_59_54_6-390x510.gif', DEFAULT, 5);
+INSERT INTO Image VALUES(N'2019_09_19_10_59_54_7-390x510.gif', DEFAULT, 5);
+INSERT INTO Image VALUES(N'2019_09_19_10_59_54_8-390x510.gif', DEFAULT, 5);
 EXEC sp_setImageDefaultofBook N'Bố Già (Đông A)', N'8936071673381.jpg';
 
 INSERT INTO Author VALUES(N'Nguyễn Nhật Ánh');
 INSERT INTO Supplier VALUES(N'NXB Trẻ', N'Hà Nội', DEFAULT, 'nxbt@gmail.com', '042344542', DEFAULT);
-INSERT INTO Book VALUES(N'Con Chim Xanh Biếc Bay Về', N'', DEFAULT, 100000, 150, 100, 112000, 7, 20, 6, DEFAULT);
-INSERT INTO Image VALUES(N'biamem.jpg', DEFAULT, 7);
-INSERT INTO Image VALUES(N'con_chim_xanh_bia_mem_bia_1.jpg', DEFAULT, 7);
-INSERT INTO Image VALUES(N'con_chim_xanh_bia_mem_3d.jpg', DEFAULT, 7);
-INSERT INTO Image VALUES(N'con_chim_xanh_biec_bay_ve_bia-mem.jpg', DEFAULT, 7);
+INSERT INTO Book VALUES(N'Con Chim Xanh Biếc Bay Về', N'', DEFAULT, 100000, 150, 100, 112000, 6, 20, 5, DEFAULT);
+INSERT INTO Image VALUES(N'biamem.jpg', DEFAULT, 6);
+INSERT INTO Image VALUES(N'con_chim_xanh_bia_mem_bia_1.jpg', DEFAULT, 6);
+INSERT INTO Image VALUES(N'con_chim_xanh_bia_mem_3d.jpg', DEFAULT, 6);
+INSERT INTO Image VALUES(N'con_chim_xanh_biec_bay_ve_bia-mem.jpg', DEFAULT, 6);
 EXEC sp_setImageDefaultofBook N'Con Chim Xanh Biếc Bay Về', N'biamem.jpg';
 
-INSERT INTO Book VALUES(N'Mắt Biếc', N'', DEFAULT, 100000, 150, 100, 112000, 7, 20, 6, DEFAULT);
-INSERT INTO Image VALUES(N'mat-biec_bia-mem_in-lan-thu-44.jpg', DEFAULT, 8);
-INSERT INTO Image VALUES(N'mat_biec_bia_mem_1.jpg', DEFAULT, 8);
-INSERT INTO Image VALUES(N'mat_biec_bia_mem_2.jpg', DEFAULT, 8);
-INSERT INTO Image VALUES(N'2019_11_05_09_36_21_2-390x510.jpg', DEFAULT, 8);
-INSERT INTO Image VALUES(N'2019_11_05_09_36_21_3-390x510.jpg', DEFAULT, 8);
-INSERT INTO Image VALUES(N'2019_11_05_09_36_21_4-390x510.jpg', DEFAULT, 8);
-INSERT INTO Image VALUES(N'2019_11_05_09_36_21_5-390x510.jpg', DEFAULT, 8);
-INSERT INTO Image VALUES(N'2019_11_05_09_36_21_6-390x510.jpg', DEFAULT, 8);
-INSERT INTO Image VALUES(N'2019_11_05_09_36_21_7-390x510.jpg', DEFAULT, 8);
-INSERT INTO Image VALUES(N'2019_11_05_09_36_21_8-390x510.jpg', DEFAULT, 8);
-INSERT INTO Image VALUES(N'2019_11_05_09_36_21_9-390x510.jpg', DEFAULT, 8);
-INSERT INTO Image VALUES(N'2019_11_05_09_36_21_10-390x510.jpg', DEFAULT, 8);
+INSERT INTO Book VALUES(N'Mắt Biếc', N'', DEFAULT, 100000, 150, 100, 112000, 6, 20, 5, DEFAULT);
+INSERT INTO Image VALUES(N'mat-biec_bia-mem_in-lan-thu-44.jpg', DEFAULT, 7);
+INSERT INTO Image VALUES(N'mat_biec_bia_mem_1.jpg', DEFAULT, 7);
+INSERT INTO Image VALUES(N'mat_biec_bia_mem_2.jpg', DEFAULT, 7);
+INSERT INTO Image VALUES(N'2019_11_05_09_36_21_2-390x510.jpg', DEFAULT, 7);
+INSERT INTO Image VALUES(N'2019_11_05_09_36_21_3-390x510.jpg', DEFAULT, 7);
+INSERT INTO Image VALUES(N'2019_11_05_09_36_21_4-390x510.jpg', DEFAULT, 7);
+INSERT INTO Image VALUES(N'2019_11_05_09_36_21_5-390x510.jpg', DEFAULT, 7);
+INSERT INTO Image VALUES(N'2019_11_05_09_36_21_6-390x510.jpg', DEFAULT, 7);
+INSERT INTO Image VALUES(N'2019_11_05_09_36_21_7-390x510.jpg', DEFAULT, 7);
+INSERT INTO Image VALUES(N'2019_11_05_09_36_21_8-390x510.jpg', DEFAULT, 7);
+INSERT INTO Image VALUES(N'2019_11_05_09_36_21_9-390x510.jpg', DEFAULT, 7);
+INSERT INTO Image VALUES(N'2019_11_05_09_36_21_10-390x510.jpg', DEFAULT, 7);
 EXEC sp_setImageDefaultofBook N'Mắt Biếc', N'mat-biec_bia-mem_in-lan-thu-44.jpg';
 
-INSERT INTO Book VALUES(N'Cảm Ơn Người Lớn', N'', DEFAULT, 80000, 100, 90, 110000, 7, 20, 6, DEFAULT);
-INSERT INTO Image VALUES(N'cam_on_nguoi_lon_bia_mem_1_2018_11_15_13_40_08.jpg', DEFAULT, 9);
+INSERT INTO Book VALUES(N'Cảm Ơn Người Lớn', N'', DEFAULT, 80000, 100, 90, 110000, 6, 20, 5, DEFAULT);
+INSERT INTO Image VALUES(N'cam_on_nguoi_lon_bia_mem_1_2018_11_15_13_40_08.jpg', DEFAULT, 8);
 EXEC sp_setImageDefaultofBook N'Cảm Ơn Người Lớn', N'cam_on_nguoi_lon_bia_mem_1_2018_11_15_13_40_08.jpg';
 
 INSERT INTO Author VALUES(N'Sumino Yoru');
-INSERT INTO Book VALUES(N'Tớ Muốn Ăn Tụy Của Cậu', N'', DEFAULT, 80000, 150, 100, 96000, 8, 20, 1, DEFAULT);
-INSERT INTO Image VALUES(N'to_muon_an_tuy_cua_cau_1_2018_08_07_11_02_04.jpg', DEFAULT, 10);
+INSERT INTO Book VALUES(N'Tớ Muốn Ăn Tụy Của Cậu', N'', DEFAULT, 80000, 150, 100, 96000, 7, 20, 1, DEFAULT);
+INSERT INTO Image VALUES(N'to_muon_an_tuy_cua_cau_1_2018_08_07_11_02_04.jpg', DEFAULT, 9);
 EXEC sp_setImageDefaultofBook N'Tớ Muốn Ăn Tụy Của Cậu', N'to_muon_an_tuy_cua_cau_1_2018_08_07_11_02_04.jpg';
 
 INSERT INTO Author VALUES(N'Vũ Trọng Phụng');
 INSERT INTO Supplier VALUES(N'NXB Văn Học', N'Hà Nội', DEFAULT, 'nxbvh@gmail.com', '054354542', DEFAULT);
-INSERT INTO Book VALUES(N'Số Đỏ', N'', DEFAULT, 100000, 150, 100, 112000, 9, 20, 7, DEFAULT);
-INSERT INTO Image VALUES(N'image_220968.jpg', DEFAULT, 11);
-INSERT INTO Image VALUES(N'8935095630752.jpg', DEFAULT, 11);
-INSERT INTO Image VALUES(N'bia_sodo3b4.jpg', DEFAULT, 11);
-INSERT INTO Image VALUES(N'2021_05_10_08_08_57_1-390x510.jpg', DEFAULT, 11);
-INSERT INTO Image VALUES(N'2021_05_10_08_08_57_2-390x510.jpg', DEFAULT, 11);
-INSERT INTO Image VALUES(N'2021_05_10_08_08_57_3-390x510.jpg', DEFAULT, 11);
-INSERT INTO Image VALUES(N'2021_05_10_08_08_57_4-390x510.jpg', DEFAULT, 11);
-INSERT INTO Image VALUES(N'2021_05_10_08_08_57_5-390x510.jpg', DEFAULT, 11);
-INSERT INTO Image VALUES(N'2021_05_10_08_08_57_6-390x510.jpg', DEFAULT, 11);
+INSERT INTO Book VALUES(N'Số Đỏ', N'', DEFAULT, 100000, 150, 100, 112000, 8, 20, 6, DEFAULT);
+INSERT INTO Image VALUES(N'image_220968.jpg', DEFAULT, 10);
+INSERT INTO Image VALUES(N'8935095630752.jpg', DEFAULT, 10);
+INSERT INTO Image VALUES(N'bia_sodo3b4.jpg', DEFAULT, 10);
+INSERT INTO Image VALUES(N'2021_05_10_08_08_57_1-390x510.jpg', DEFAULT, 10);
+INSERT INTO Image VALUES(N'2021_05_10_08_08_57_2-390x510.jpg', DEFAULT, 10);
+INSERT INTO Image VALUES(N'2021_05_10_08_08_57_3-390x510.jpg', DEFAULT, 10);
+INSERT INTO Image VALUES(N'2021_05_10_08_08_57_4-390x510.jpg', DEFAULT, 10);
+INSERT INTO Image VALUES(N'2021_05_10_08_08_57_5-390x510.jpg', DEFAULT, 10);
+INSERT INTO Image VALUES(N'2021_05_10_08_08_57_6-390x510.jpg', DEFAULT, 10);
 EXEC sp_setImageDefaultofBook N'Số Đỏ', N'image_220968.jpg';
 
 INSERT INTO Author VALUES(N'Dazai Osamu');
-INSERT INTO Book VALUES(N'Chiếc Hộp Pandora', N'', DEFAULT, 70000, 150, 100, 90000, 10, 20, 1, DEFAULT);
-INSERT INTO Image VALUES(N'image_228453.jpg', DEFAULT, 12);
+INSERT INTO Book VALUES(N'Chiếc Hộp Pandora', N'', DEFAULT, 70000, 150, 100, 90000, 9, 20, 1, DEFAULT);
+INSERT INTO Image VALUES(N'image_228453.jpg', DEFAULT, 11);
 EXEC sp_setImageDefaultofBook N'Chiếc Hộp Pandora', N'image_228453.jpg';
 
 INSERT INTO Author VALUES(N'Jim Collins');
-INSERT INTO Book VALUES(N'Từ Tốt Đến Vĩ Đại', N'', DEFAULT, 100000, 150, 100, 112000, 11, 6, 6, DEFAULT);
-INSERT INTO Image VALUES(N'nxbtre_full_09462021_024609.jpg', DEFAULT, 13);
-INSERT INTO Image VALUES(N'nxbtre_full_09462021_024609_1.jpg', DEFAULT, 13);
-INSERT INTO Image VALUES(N'2021_05_14_14_13_53_1-390x510.jpg', DEFAULT, 13);
-INSERT INTO Image VALUES(N'2021_05_14_14_13_53_2-390x510.jpg', DEFAULT, 13);
-INSERT INTO Image VALUES(N'2021_05_14_14_13_53_3-390x510.jpg', DEFAULT, 13);
-INSERT INTO Image VALUES(N'2021_05_14_14_13_53_4-390x510.jpg', DEFAULT, 13);
-INSERT INTO Image VALUES(N'2021_05_14_14_13_53_5-390x510.jpg', DEFAULT, 13);
-INSERT INTO Image VALUES(N'2021_05_14_14_13_53_6-390x510.jpg', DEFAULT, 13);
+INSERT INTO Book VALUES(N'Từ Tốt Đến Vĩ Đại', N'', DEFAULT, 100000, 150, 100, 112000, 10, 6, 6, DEFAULT);
+INSERT INTO Image VALUES(N'nxbtre_full_09462021_024609.jpg', DEFAULT, 12);
+INSERT INTO Image VALUES(N'nxbtre_full_09462021_024609_1.jpg', DEFAULT, 12);
+INSERT INTO Image VALUES(N'2021_05_14_14_13_53_1-390x510.jpg', DEFAULT, 12);
+INSERT INTO Image VALUES(N'2021_05_14_14_13_53_2-390x510.jpg', DEFAULT, 12);
+INSERT INTO Image VALUES(N'2021_05_14_14_13_53_3-390x510.jpg', DEFAULT, 12);
+INSERT INTO Image VALUES(N'2021_05_14_14_13_53_4-390x510.jpg', DEFAULT, 12);
+INSERT INTO Image VALUES(N'2021_05_14_14_13_53_5-390x510.jpg', DEFAULT, 12);
+INSERT INTO Image VALUES(N'2021_05_14_14_13_53_6-390x510.jpg', DEFAULT, 12);
 EXEC sp_setImageDefaultofBook N'Từ Tốt Đến Vĩ Đại', N'nxbtre_full_09462021_024609.jpg';
 
 INSERT INTO Author VALUES(N'Napoleon Hill');
 INSERT INTO Supplier VALUES(N'NXB Tổng Hợp TPHCM', N'TP HCM', DEFAULT, 'nxbth@gmail.com', '0843442', DEFAULT);
-INSERT INTO Book VALUES(N'Nghĩ Giàu & Làm Giàu', N'', DEFAULT, 90000, 150, 100, 112000, 12, 2, 8, DEFAULT);
-INSERT INTO Image VALUES(N'nghigiaulamgiau_110k-01_bia-1.jpg', DEFAULT, 14);
-INSERT INTO Image VALUES(N'nghigiaulamgiau_110k-01_bia_2.jpg', DEFAULT, 14);
-INSERT INTO Image VALUES(N'nghigiaulamgiau_110k-01_bia_sau.jpg', DEFAULT, 14);
-INSERT INTO Image VALUES(N'20.6.26_nghi_giau_lam_giau_11k.jpg', DEFAULT, 14);
+INSERT INTO Book VALUES(N'Nghĩ Giàu & Làm Giàu', N'', DEFAULT, 90000, 150, 100, 112000, 11, 2, 7, DEFAULT);
+INSERT INTO Image VALUES(N'nghigiaulamgiau_110k-01_bia-1.jpg', DEFAULT, 13);
+INSERT INTO Image VALUES(N'nghigiaulamgiau_110k-01_bia_2.jpg', DEFAULT, 13);
+INSERT INTO Image VALUES(N'nghigiaulamgiau_110k-01_bia_sau.jpg', DEFAULT, 13);
+INSERT INTO Image VALUES(N'20.6.26_nghi_giau_lam_giau_11k.jpg', DEFAULT, 13);
 EXEC sp_setImageDefaultofBook N'Nghĩ Giàu & Làm Giàu', N'nghigiaulamgiau_110k-01_bia-1.jpg';
-
-USE BookSalesManager
-GO
 
 INSERT INTO Discount VALUES(N'Sales mừng web mới', DEFAULT, DEFAULT, 25);
 INSERT INTO Discount VALUES(N'Sales lớn tháng 12', DEFAULT, DEFAULT, 15);
@@ -403,7 +396,6 @@ INSERT INTO Book_Discounts VALUES(6, 1);
 INSERT INTO Book_Discounts VALUES(7, 1);
 INSERT INTO Book_Discounts VALUES(8, 1);
 INSERT INTO Book_Discounts VALUES(9, 1);
-INSERT INTO Book_Discounts VALUES(10, 1);
 INSERT INTO Book_Discounts VALUES(1, 2);
 INSERT INTO Book_Discounts VALUES(2, 2);
 INSERT INTO Book_Discounts VALUES(3, 2);
@@ -411,6 +403,25 @@ INSERT INTO Book_Discounts VALUES(4, 2);
 INSERT INTO Book_Discounts VALUES(11, 2);
 INSERT INTO Book_Discounts VALUES(12, 2);
 INSERT INTO Book_Discounts VALUES(13, 2);
-INSERT INTO Book_Discounts VALUES(14, 2);
+
+INSERT INTO DeliveryStatus VALUES(N'Chờ xác nhận');
+INSERT INTO DeliveryStatus VALUES(N'Chờ lấy hàng');
+INSERT INTO DeliveryStatus VALUES(N'Đang giao');
+INSERT INTO DeliveryStatus VALUES(N'Đã nhận hàng');
+INSERT INTO DeliveryStatus VALUES(N'Đã hủy');
+
+INSERT INTO Payment VALUES(N'Thanh toán bằng tiền mặt khi nhận hàng');
+INSERT INTO Payment VALUES(N'Thanh toán chuyển khoản qua Pay pal');
+INSERT INTO Payment VALUES(N'Thanh toán chuyển khoản qua Thẻ ATM/Internet Banking');
+
+INSERT INTO ShippingMethod VALUES(N'Giao hàng tiêu chuẩn', N'Từ 1-3 ngày tại TP. Hồ Chí Minh; từ 3-5 ngày đối với các Tỉnh / Thành khác', 5);
+INSERT INTO ShippingMethod VALUES(N'Giao hàng nhanh', N'Từ 1-3 ngày tại TP. Hồ Chí Minh; từ 3-5 ngày đối với các Tỉnh / Thành khác', 7.5);
+
+INSERT INTO Orders VALUES(DEFAULT, N'Minh Phương', N'0990234', N'Long An', 1, 1, 1, 1, N'Trả tiền');
+
+INSERT INTO Cart VALUES(DEFAULT, 2, 1, 1, 1);
+INSERT INTO Cart VALUES(DEFAULT, 3, 2, 1, 1);
+INSERT INTO Cart VALUES(DEFAULT, 1, 3, 1, 1);
+INSERT INTO Cart VALUES(DEFAULT, 5, 4, 1, 1);
 
 

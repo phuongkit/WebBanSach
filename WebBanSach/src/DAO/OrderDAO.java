@@ -1,5 +1,6 @@
 package DAO;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.hibernate.Session;
@@ -11,8 +12,172 @@ import Model.Cart;
 import Model.Order;
 import utils.HibernateUtils;
 
-public class CartDAO {
-	public static ArrayList<Cart> getAllCarts(){
+public class OrderDAO {
+	public static ArrayList<Order> getAllOrders(){
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		ArrayList<Order> orders = new ArrayList<Order>();
+		try {
+			transaction = session.beginTransaction();
+
+			String sql = "from " + Order.class.getName();
+
+			Query<Order> query = session.createQuery(sql);
+
+			orders = (ArrayList<Order>) query.getResultList();
+
+			transaction.commit();
+
+			session.close();
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+
+		return orders;
+	}
+	public static void insertOrder(Order order) {
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		Transaction transaction = null;
+		try {
+			transaction = session.beginTransaction();
+
+			session.save(order);
+
+			transaction.commit();
+			session.close();
+
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+			if(transaction != null) {
+				transaction.rollback();
+			}
+		}
+	}
+	public static void updateOrder(Order order) {
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		Transaction transaction = null;
+		try {
+			transaction = session.beginTransaction();
+
+			session.saveOrUpdate(order);
+
+			//			int result = query.executeUpdate();
+
+			transaction.commit();
+
+			session.close();
+
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+			if(transaction != null) {
+				transaction.rollback();
+			}
+		}
+	}
+
+	public static void deleteOrder(Order order) {
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		Transaction transaction = null;
+		try {
+			transaction = session.beginTransaction();
+
+			session.delete(order);
+
+			transaction.commit();
+
+			session.close();
+
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+			if(transaction != null) {
+				transaction.rollback();
+			}
+		}
+	}
+
+	public static void deleteOrder(long id) {
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		Transaction transaction = null;
+		Order order = null;
+		try {
+			transaction = session.beginTransaction();
+
+			order = session.get(Order.class, id);
+
+			session.delete(order);
+
+			transaction.commit();
+
+			session.close();
+
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+			if(transaction != null) {
+				transaction.rollback();
+			}
+		}
+	}
+
+	public static Order getOrderByID(long id) {
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		Transaction transaction = null;
+		Order order = null;
+		try {
+			transaction = session.beginTransaction();
+
+			order = session.get(Order.class, id);
+
+			transaction.commit();
+
+			session.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			if(transaction != null) {
+				transaction.rollback();
+			}
+		}
+		return order;
+	}
+	public static ArrayList<Order> getAllOrderByAccount(long account_id){
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		ArrayList<Order> orders = new ArrayList<Order>();
+		try {
+			transaction = session.beginTransaction();
+
+			String sql = "from " + Order.class.getName() + " where account_id=:account_id";
+
+			Query<Order> query = session.createQuery(sql);
+
+			query.setParameter("account_id", account_id);
+
+			orders = (ArrayList<Order>) query.getResultList();
+
+			transaction.commit();
+
+			session.close();
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+
+		return orders;
+	}
+
+	public static BigDecimal getTotalMoneyByOrder(long order_id) {
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		Session session = factory.openSession();
 		Transaction transaction = null;
@@ -20,223 +185,26 @@ public class CartDAO {
 		try {
 			transaction = session.beginTransaction();
 
-			String sql = "from " + Cart.class.getName();
-
-			Query<Cart> query = session.createQuery(sql);
-
-			carts = (ArrayList<Cart>) query.getResultList();
-
-			for (Cart cart : carts) {
-				System.out.println("Cart: " + cart.getId() + " : "+ cart.getBook().getName());
-			}
-
-			transaction.commit();
-
-		} catch (Exception e) 
-		{
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-
-		return carts;
-	}
-	public static void insertCart(Cart cart) {
-		SessionFactory factory = HibernateUtils.getSessionFactory();
-		Session session = factory.getCurrentSession();
-		Transaction transaction = null;
-		try {
-			transaction = session.beginTransaction();
-
-			session.save(cart);
-
-			transaction.commit();
-
-		} catch (Exception e) 
-		{
-			e.printStackTrace();
-			if(transaction != null) {
-				transaction.rollback();
-			}
-		} finally {
-			session.close();
-		}
-	}
-	public static void updateCart(Cart cart) {
-		SessionFactory factory = HibernateUtils.getSessionFactory();
-		Session session = factory.getCurrentSession();
-		Transaction transaction = null;
-		try {
-			transaction = session.beginTransaction();
-
-			session.saveOrUpdate(cart);
-
-			transaction.commit();
-			
-		} catch (Exception e) 
-		{
-			e.printStackTrace();
-			if(transaction != null) {
-				transaction.rollback();
-			}
-		} finally {
-			session.close();
-		}
-	}
-
-	public static void deleteCart(Cart cart) {
-		SessionFactory factory = HibernateUtils.getSessionFactory();
-		Session session = factory.getCurrentSession();
-		Transaction transaction = null;
-		try {
-			transaction = session.beginTransaction();
-
-			session.delete(cart);
-
-			transaction.commit();
-
-		} catch (Exception e) 
-		{
-			e.printStackTrace();
-			if(transaction != null) {
-				transaction.rollback();
-			}
-		} finally {
-			session.close();
-		}
-	}
-
-	public static void deleteCart(long id) {
-		SessionFactory factory = HibernateUtils.getSessionFactory();
-		Session session = factory.getCurrentSession();
-		Transaction transaction = null;
-		Cart cart = null;
-		try {
-			transaction = session.beginTransaction();
-
-			cart = session.get(Cart.class, id);
-
-			session.delete(cart);
-
-			transaction.commit();
-			
-		} catch (Exception e) 
-		{
-			e.printStackTrace();
-			if(transaction != null) {
-				transaction.rollback();
-			}
-		} finally {
-			session.close();
-		}
-	}
-
-	public static Cart getCartByID(long id) {
-		SessionFactory factory = HibernateUtils.getSessionFactory();
-		Session session = factory.getCurrentSession();
-		Transaction transaction = null;
-		Cart cart = null;
-		try {
-			transaction = session.beginTransaction();
-
-			cart = session.get(Cart.class, id);
-
-			transaction.commit();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			if(transaction != null) {
-				transaction.rollback();
-			}
-		} finally {
-			session.close();
-		}
-		return cart;
-	}
-	
-	public static Cart getCartByAccountAndBook(long account_id, long book_id) {
-		SessionFactory factory = HibernateUtils.getSessionFactory();
-		Session session = factory.getCurrentSession();
-		Transaction transaction = null;
-		Cart cart = null;
-		try {
-			transaction = session.beginTransaction();
-
-			String sql = "from " + Cart.class.getName() + " where account_id=:account_id and book_id=:book_id";
-
-			Query<Cart> query = session.createQuery(sql);
-
-			query.setParameter("account_id", account_id);
-			query.setParameter("book_id", book_id);
-			
-			cart = query.getSingleResult();
-			
-			transaction.commit();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			if(transaction != null) {
-				transaction.rollback();
-			}
-		} finally {
-			session.close();
-		}
-		return cart;
-	}
-	
-	public static ArrayList<Cart> getCountCartNotOrderByAccount(long account_id) {
-		SessionFactory factory = HibernateUtils.getSessionFactory();
-		Session session = factory.getCurrentSession();
-		Transaction transaction = null;
-		ArrayList<Cart> carts = new ArrayList<Cart>();
-		try {
-			transaction = session.beginTransaction();
-
-			String sql = "from " + Cart.class.getName() + " where account_id=:account_id and quantity > 0";
-
-			Query<Cart> query = session.createQuery(sql);
-
-			query.setParameter("account_id", account_id);
-			
-			carts = (ArrayList<Cart>) query.getResultList();
-
-			transaction.commit();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			if(transaction != null) {
-				transaction.rollback();
-			}
-		} finally {
-			session.close();
-		}
-		return carts;
-	}
-	
-	public static ArrayList<Cart> getCartByOrder(long order_id){
-		SessionFactory factory = HibernateUtils.getSessionFactory();
-		Session session = factory.openSession();
-		Transaction transaction = null;
-		ArrayList<Cart> carts = new ArrayList<Cart>();
-		try {
-			transaction = session.beginTransaction();
-			
 			String sql = "from " + Cart.class.getName() + " where order_id=:order_id";
-			
+
 			Query<Cart> query = session.createQuery(sql);
-			
+
 			query.setParameter("order_id", order_id);
-			
+
 			carts = (ArrayList<Cart>) query.getResultList();
-			
+
 			transaction.commit();
-			
+
 			session.close();
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
-		
-		return carts;
+
+		BigDecimal total = new BigDecimal(0);
+		for(int i=0;i<carts.size();i++) {
+			total = total.add(carts.get(i).getQuantity().multiply(carts.get(i).getBook().getSalePrice()));
+		}
+		return total;
 	}
 }
