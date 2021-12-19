@@ -57,6 +57,18 @@
 	<!-- menu home  -->
 	<jsp:include page="_menu.jsp"></jsp:include>
 
+	<!-- breadcrumb  -->
+	<section class="breadcrumbbar">
+		<div class="container">
+			<ol class="breadcrumb mb-0 p-0 bg-transparent">
+				<li class="breadcrumb-item"><a
+					href="${pageContext.request.contextPath}">Trang chủ</a></li>
+				<li class="breadcrumb-item active"><a href="sach-kinh-te.html">${book.bookGrenre.name}</a></li>
+			</ol>
+		</div>
+	</section>
+	</section>
+
 	<!-- nội dung của trang  -->
 	<section class="product-page mb-4">
 		<div class="container">
@@ -114,7 +126,7 @@
 								</div>
 								<hr>
 							</div>
-							<div class="col-md-7">
+							<div class="col-md-7" style="position: relative;">
 								<div class="gia">
 									<c:set var="sales"
 										value="${BookDAO.getSalesByBookNotExpired(book.id)}" />
@@ -158,21 +170,30 @@
 										<li>Bao sách miễn phí (theo yêu cầu)</li>
 									</ul>
 								</div>
-								<form action="/cart" method="post">
+								<form id="form" action="" method="post" onsubmit="return false">
 									<div class="soluong d-flex">
 										<label class="font-weight-bold">Số lượng: </label>
 										<div class="input-number input-group mb-3">
 											<div class="input-group-prepend">
 												<span class="input-group-text btn-spin btn-dec">-</span>
 											</div>
-											<input type="text" value="1" class="soluongsp  text-center">
+											<input type="text" value="1" name="count"
+												class="soluongsp  text-center" />
 											<div class="input-group-append">
 												<span class="input-group-text btn-spin btn-inc">+</span>
 											</div>
 										</div>
 									</div>
-									<button type="submit" class="nutmua btn w-100 text-uppercase">Chọn mua</button>
+									<input type="submit" class="nutmua btn w-100 text-uppercase"
+										value="Chọn mua" /> <input type="hidden" name="book_id"
+										value="${book.id}" />
 								</form>
+								<div id="result"
+									style="display: none; bottom: -70px; width: 340px; text-align: center; height: 180px; background-color: #000; opacity: 0.6; position: absolute; padding-top: 32px;">
+									<a id="status"></a>
+									<h3 id="resultstring"
+										style="color: #fff; padding-top: 8px; font-size: 20px;"></h3>
+								</div>
 								<a class="huongdanmuahang text-decoration-none" href="#">(Vui
 									lòng xem hướng dẫn mua hàng)</a> <small class="share">Share:
 								</small>
@@ -188,6 +209,7 @@
 										<li>Tác giả: <a href="#" class="tacgia">${book.author.name}</a></li>
 										<li>Ngày xuất bản: <b>${formatter.format(book.createdAt.getTime())}</b></li>
 										<li>Nhà xuất bản: ${book.supplier.name}</li>
+										<li>Số lượng hiện có: <span id="soluongsach">${book.quantityAvailable}</span></li>
 									</ul>
 								</div>
 							</div>
@@ -893,6 +915,49 @@
 		</div>
 	</section>
 	<!-- het .abovefooter  -->
+
+	<script>
+		/* attach a submit handler to the form */
+		$("#form").submit(function(event) {
+
+			/* stop form from submitting normally */
+			event.preventDefault();
+
+			/* get the action attribute from the <form action=""> element */
+			var $form = $(this), url = $form.attr('action');
+
+			/* Send the data using post with element id name and name2*/
+			var posting = $.post(url, {
+				book_id : $("input[name='book_id']").val(),
+				count : $("input[name='count']").val()
+			});
+
+			/* Alerts the results */
+			posting.done(function(data) {
+				var result = document.getElementById("result");
+				var status = document.getElementById("status");
+				result.style.display = 'block';
+				status.classList.add('success');
+				status.classList.add('ti-arrow-circle-down');
+				$('#resultstring').text(data[0]);
+				$('#soluongsach').text(data[1]);
+				setTimeout(function() {
+					result.style.display = 'none';
+				}, 2000);
+			});
+			posting.fail(function() {
+				var result = document.getElementById("result");
+				var status = document.getElementById("status");
+				status.classList.add('ti-na');
+				status.classList.add('fail');
+				result.style.display = 'block';
+				$('#resultstring').text(data[0]);
+				setTimeout(function() {
+					result.style.display = 'none';
+				}, 2000);
+			});
+		});
+	</script>
 
 	<!-- footer  -->
 	<jsp:include page="_footer.jsp"></jsp:include>

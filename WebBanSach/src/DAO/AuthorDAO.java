@@ -25,10 +25,6 @@ public class AuthorDAO {
 			
 			authors = (ArrayList<Author>) query.getResultList();
 			
-			for (Author author : authors) {
-				System.out.println("Author: " + author.getId() + " : "+ author.getName());
-			}
-			
 			transaction.commit();
 			
 			session.close();

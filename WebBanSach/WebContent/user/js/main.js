@@ -373,7 +373,7 @@ $(function () {
             localStorage.setItem('totalCost', parseInt($(".soluongsp").val()) * product.price);
         }
     }
-
+/*
     function displayCart() {
         let cartItems = localStorage.getItem("productsInCart");
         cartItems = JSON.parse(cartItems);
@@ -471,6 +471,7 @@ $(function () {
             
         }
     }
+*/
 
     $(".btn-checkout").click(function (e) {
         localStorage.clear();

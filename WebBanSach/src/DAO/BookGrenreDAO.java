@@ -25,10 +25,6 @@ public class BookGrenreDAO {
 
 			bookGrenres = (ArrayList<BookGrenre>) query.getResultList();
 
-			for (BookGrenre bookGrenre : bookGrenres) {
-				System.out.println("BookGrenre: " + bookGrenre.getId() + " : "+ bookGrenre.getName());
-			}
-
 			transaction.commit();
 
 			session.close();
@@ -166,11 +162,6 @@ public class BookGrenreDAO {
 			query.setParameter("bookCategory_id", bookCategory_id);
 
 			bookGrenres = (ArrayList<BookGrenre>) query.getResultList();
-
-			for (BookGrenre bookGrenre : bookGrenres) {
-				System.out.println("BookGrenre: " + bookGrenre.getId() + " : "+ bookGrenre.getName());
-			}
-
 
 			transaction.commit();
 

@@ -60,15 +60,4 @@
 		</div>
 	</div>
 </section>
-
-<!-- breadcrumb  -->
-<section class="breadcrumbbar">
-	<div class="container">
-		<ol class="breadcrumb mb-0 p-0 bg-transparent">
-			<li class="breadcrumb-item"><a href="${pageContext.request.contextPath}">Trang chủ</a></li>
-			<li class="breadcrumb-item active"><a href="sach-kinh-te.html">${book.bookGrenre.name}</a></li>
-		</ol>
-	</div>
-</section>
-</section>
 </html>

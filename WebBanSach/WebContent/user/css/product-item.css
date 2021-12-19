@@ -46,7 +46,20 @@ label.label-select {
 }
 
 
+/* css cho result */
 
+#result .success,
+#result .fail{
+	font-size: 40px; 
+}
+
+#result .success{
+	color: #00ced1;
+}
+
+#result .fail{
+	color: red;
+}
 
 
 /* css cho navbar  */

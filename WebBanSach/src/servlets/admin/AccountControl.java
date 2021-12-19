@@ -51,6 +51,7 @@ public class AccountControl extends HttpServlet {
 	private void show(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 		long id = Long.parseLong(request.getParameter("sid"));
 		Account account = AccountDAO.getAccountByID(id);
 		

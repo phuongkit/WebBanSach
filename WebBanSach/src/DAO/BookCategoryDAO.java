@@ -26,10 +26,6 @@ public class BookCategoryDAO {
 			
 			bookCategories = (ArrayList<BookCategory>) query.getResultList();
 			
-			for (BookCategory bookCategory : bookCategories) {
-				System.out.println("Book: " + bookCategory.getId() + " : "+ bookCategory.getName());
-			}
-			
 			transaction.commit();
 			
 			session.close();

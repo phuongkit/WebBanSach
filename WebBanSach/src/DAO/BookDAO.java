@@ -27,10 +27,6 @@ public class BookDAO {
 
 			books = (ArrayList<Book>) query.getResultList();
 
-			for (Book book : books) {
-				System.out.println("Book: " + book.getId() + " : "+ book.getName());
-			}
-
 			transaction.commit();
 
 		} catch (Exception e) 

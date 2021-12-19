@@ -25,10 +25,6 @@ public class AccountDAO {
 			
 			accounts = (ArrayList<Account>) query.getResultList();
 			
-			for (Account account : accounts) {
-				System.out.println("Book: " + account.getId() + " : "+ account.getUsername());
-			}
-			
 			transaction.commit();
 			
 		} catch (Exception e) 

@@ -58,6 +58,7 @@ public class BookControl extends HttpServlet {
 	private void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 		long id = Long.parseLong(request.getParameter("sid"));
 		Book book = BookDAO.getBookByID(id);
 		

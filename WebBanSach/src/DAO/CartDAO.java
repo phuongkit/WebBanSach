@@ -31,10 +31,11 @@ public class CartDAO {
 
 			transaction.commit();
 
-			session.close();
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
 
 		return carts;
@@ -49,7 +50,6 @@ public class CartDAO {
 			session.save(cart);
 
 			transaction.commit();
-			session.close();
 
 		} catch (Exception e) 
 		{
@@ -57,6 +57,8 @@ public class CartDAO {
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 	}
 	public static void updateCart(Cart cart) {
@@ -68,18 +70,16 @@ public class CartDAO {
 
 			session.saveOrUpdate(cart);
 
-			//			int result = query.executeUpdate();
-
 			transaction.commit();
-
-			session.close();
-
+			
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 	}
 
@@ -94,14 +94,14 @@ public class CartDAO {
 
 			transaction.commit();
 
-			session.close();
-
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 	}
 
@@ -118,15 +118,15 @@ public class CartDAO {
 			session.delete(cart);
 
 			transaction.commit();
-
-			session.close();
-
+			
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 	}
 
@@ -142,21 +142,52 @@ public class CartDAO {
 
 			transaction.commit();
 
+		} catch (Exception e) {
+			e.printStackTrace();
+			if(transaction != null) {
+				transaction.rollback();
+			}
+		} finally {
 			session.close();
+		}
+		return cart;
+	}
+	
+	public static Cart getCartByAccountAndBook(long account_id, long book_id) {
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		Transaction transaction = null;
+		Cart cart = null;
+		try {
+			transaction = session.beginTransaction();
+
+			String sql = "from " + Cart.class.getName() + " where account_id=:account_id and book_id=:book_id";
+
+			Query<Cart> query = session.createQuery(sql);
+
+			query.setParameter("account_id", account_id);
+			query.setParameter("book_id", book_id);
+			
+			cart = query.getSingleResult();
+			
+			transaction.commit();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
 		return cart;
 	}
-	public static int getCountCartNotOrderByUsername(long account_id) {
+	
+	public static ArrayList<Cart> getCountCartNotOrderByAccount(long account_id) {
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		Session session = factory.getCurrentSession();
 		Transaction transaction = null;
-		int count = 0;
+		ArrayList<Cart> carts = new ArrayList<Cart>();
 		try {
 			transaction = session.beginTransaction();
 
@@ -166,18 +197,18 @@ public class CartDAO {
 
 			query.setParameter("account_id", account_id);
 			
-			count = query.getResultList().size();
+			carts = (ArrayList<Cart>) query.getResultList();
 
 			transaction.commit();
-
-			session.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			if(transaction != null) {
 				transaction.rollback();
 			}
+		} finally {
+			session.close();
 		}
-		return count;
+		return carts;
 	}
 }
