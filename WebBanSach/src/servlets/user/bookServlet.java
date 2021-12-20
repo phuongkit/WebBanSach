@@ -49,6 +49,8 @@ public class bookServlet extends HttpServlet {
 		request.setAttribute("book", book);
 		ArrayList<Image> bookImages = ImageDAO.getAllImageByBook(id);
 		request.setAttribute("bookImages", bookImages);
+		ArrayList<Book> referencesBooks = BookDAO.getBookByGrenre(book.getBookGrenre().getId());
+		request.setAttribute("referencesBooks", referencesBooks);
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		request.setAttribute("formatter", formatter);
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/user/book.jsp");
@@ -84,7 +86,7 @@ public class bookServlet extends HttpServlet {
 		else {
 			Cart cart = null;
 			Account account = (Account)obj;
-			cart = CartDAO.getCartByAccountAndBook(account.getId(), book_id);
+			cart = CartDAO.getCartByAccountAndBookNotOrder(account.getId(), book_id);
 			if(cart != null) {
 				BigDecimal quantity = book.getQuantityAvailable();
 				if(quantity.compareTo(count) > -1) {

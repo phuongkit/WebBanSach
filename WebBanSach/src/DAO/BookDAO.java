@@ -214,9 +214,9 @@ public class BookDAO {
 			String sql = "select new " + Book.class.getName() + "(b)"
 					+ " from " + Book.class.getName() + " b join b.discounts d"
 					+ " where DATEDIFF(DAY, d.createdAt, GETDATE()) >= 0"
-					+ "	and DATEDIFF(DAY, GETDATE(), d.expiredAt) > 0";
-//					+ " group by b"
-//					+ " order by max(d.percentSale) desc";
+					+ "	and DATEDIFF(DAY, GETDATE(), d.expiredAt) > 0"
+					+ " group by b"
+					+ " order by max(d.percentSale) desc";
 
 			Query<Book> query = session.createQuery(sql);
 

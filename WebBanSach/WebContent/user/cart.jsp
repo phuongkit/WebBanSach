@@ -155,20 +155,23 @@
 													</div>
 													<div class="tab-pane fade" id="nav-dangky" role="tabpanel"
 														aria-labelledby="nav-dangky-tab">
-														<form id="form-signup-cart" class="form-signin mt-2" method="POST"
-														action="${pageContext.request.contextPath}/register">
+														<form id="form-signup-cart" class="form-signin mt-2"
+															method="POST"
+															action="${pageContext.request.contextPath}/register">
 															<div class="form-label-group">
 																<input type="text" id="regFullName" class="form-control"
-																	placeholder="Nhập họ và tên" name="regFullName" required
-																	autofocus>
+																	placeholder="Nhập họ và tên" name="regFullName"
+																	required autofocus>
 															</div>
 															<div class="form-label-group">
 																<input type="text" id="regPhone" class="form-control"
-																	placeholder="Nhập số điện thoại" name="regPhone" required>
+																	placeholder="Nhập số điện thoại" name="regPhone"
+																	required>
 															</div>
 															<div class="form-label-group">
 																<input type="email" id="regEmail" class="form-control"
-																	placeholder="Nhập địa chỉ email" name="regEmail" required>
+																	placeholder="Nhập địa chỉ email" name="regEmail"
+																	required>
 															</div>
 
 															<div class="form-label-group">
@@ -247,7 +250,8 @@
 													<div class="cart-item d-flex">
 														<c:set var="book" value="${cart.book}" />
 														<div style="margin: auto auto; display: flex;">
-															<input style="padding: 0 12px 0;" type="checkbox"
+															<input name="${"cart"}${cart.id}"
+																style="padding: 0 12px 0;" type="checkbox"
 																value="Đặt hàng"> <label
 																style="padding: 0 12px 16px;">Đặt</label>
 														</div>
@@ -304,7 +308,7 @@
 													<a href="${pageContext.request.contextPath}"
 														class="btn nutmuathem mb-3">Mua thêm</a>
 												</div>
-												<!--<div class="col-md-5 offset-md-4">
+												<div class="col-md-5 offset-md-4">
 													<div class="tonggiatien">
 														<div class="group d-flex justify-content-between">
 															<p class="label">Tạm tính:</p>
@@ -330,7 +334,7 @@
 														<small class="note d-flex justify-content-end text-muted">
 															(Giá đã bao gồm VAT) </small>
 													</div>
-												</div>-->
+												</div>
 											</div>
 										</div>
 									</div>
@@ -359,23 +363,23 @@
 															<div class="form-label-group">
 																<input type="text" id="inputName" class="form-control"
 																	placeholder="Nhập họ và tên" value="${orderName}"
-																	name="name" required autofocus>
+																	name="name" id="ordername" required autofocus>
 															</div>
 															<div class="form-label-group">
 																<input type="text" id="inputPhone" class="form-control"
 																	placeholder="Nhập số điện thoại" value="${orderPhone}"
-																	name="phone" required>
+																	name="phone" id="orderphone" required>
 															</div>
 															<div class="form-label-group">
 																<input type="text" id="inputAddress"
 																	class="form-control"
 																	placeholder="Nhập Địa chỉ giao hàng"
-																	value="${orderAddress}" name="address" required>
+																	value="${orderAddress}" name="address" id="orderaddress" required>
 															</div>
 															<div class="form-label-group">
 																<textarea type="text" id="inputNote"
 																	class="form-control"
-																	placeholder="Nhập ghi chú (Nếu có)" name="note"></textarea>
+																	placeholder="Nhập ghi chú (Nếu có)" name="note" id="ordernote"></textarea>
 															</div>
 														</form>
 													</div>
@@ -398,50 +402,55 @@
 														role="tabpanel" aria-labelledby="step3header"
 														class="stepscontent">
 														<div class="card-body" style="padding: 15px;">
-															<div class="goigiaohang">
-																<h6 class="header text-uppercase">Chọn gói giao
-																	hàng</h6>
-																<c:forEach items="${shippingMethods}"
-																	var="shippingMethod">
-																	<div class="option">
-																		<input type="radio" name="goigiaohang" id="ghtc"
-																			checked> <label for="ghtc">${shippingMethod.name}</label>
-																		<p>${shippingMethod.description}</p>
-																	</div>
-																</c:forEach>
-															</div>
-															<hr>
-															<div class="pttt">
-																<h6 class="header text-uppercase">Chọn phương thức
-																	thanh toán</h6>
-																<c:forEach items="${payments}" var="payment">
-																	<div class="option mb-2">
-																		<input type="radio" name="pttt" id="cod" checked>
-																		<label for="cod">${payment.name}</label>
-																	</div>
-																</c:forEach>
-																<div>
-																	<p class="mt-4">- Quý khách chỉ chuyển khoản khi
-																		được xác nhận có đủ sách qua điện thoại từ DealBook.</p>
-																	<p>- Thời gian chuyển khoản là trong tối đa 2 ngày
-																		từ khi có xác nhận đủ sách.</p>
-																	<p>
-																		- Nội dung chuyển khoản cần ghi: <a href="#">[Mã
-																			đơn hàng]</a> ; hoặc <a href="#">[số điện thoại dùng
-																			đặt hàng]</a>
-																	</p>
-																	<p>
-																		- Xem thông tin chuyển khoản của NetaBooks <a
-																			href="#">tại đây</a>
-																	</p>
+															<form id="orders">
+																<div class="goigiaohang">
+																	<h6 class="header text-uppercase">Chọn gói giao
+																		hàng</h6>
+																	<c:forEach items="${shippingMethods}"
+																		var="shippingMethod">
+																		<div class="option">
+																			<input id="${"ship"}${shippingMethod.id}" 
+																				type="radio"
+																				name="goigiaohang" id="ghtc" checked> <label
+																				for="ghtc">${shippingMethod.name}</label>
+																			<p>${shippingMethod.description}</p>
+																		</div>
+																	</c:forEach>
 																</div>
-															</div>
-															<hr>
-															<button
-																class="btn btn-lg btn-block btn-checkout text-uppercase text-white"
-																style="background: #F5A623">Đặt mua</button>
-															<p class="text-center note-before-checkout">(Vui lòng
-																kiểm tra lại đơn hàng trước khi Đặt Mua)</p>
+																<hr>
+																<div class="pttt">
+																	<h6 class="header text-uppercase">Chọn phương thức
+																		thanh toán</h6>
+																	<c:forEach items="${payments}" var="payment">
+																		<div class="option mb-2">
+																			<input id="${" pay"}${payment.id}" type="radio"
+																				name="pttt" id="cod" checked> <label
+																				for="cod">${payment.name}</label>
+																		</div>
+																	</c:forEach>
+																	<div>
+																		<p class="mt-4">- Quý khách chỉ chuyển khoản khi
+																			được xác nhận có đủ sách qua điện thoại từ DealBook.</p>
+																		<p>- Thời gian chuyển khoản là trong tối đa 2 ngày
+																			từ khi có xác nhận đủ sách.</p>
+																		<p>
+																			- Nội dung chuyển khoản cần ghi: <a href="#">[Mã
+																				đơn hàng]</a> ; hoặc <a href="#">[số điện thoại dùng
+																				đặt hàng]</a>
+																		</p>
+																		<p>
+																			- Xem thông tin chuyển khoản của NetaBooks <a
+																				href="#">tại đây</a>
+																		</p>
+																	</div>
+																</div>
+																<hr>
+																<button type="submit"
+																	class="btn btn-lg btn-block btn-checkout text-uppercase text-white"
+																	style="background: #F5A623">Đặt mua</button>
+																<p class="text-center note-before-checkout">(Vui
+																	lòng kiểm tra lại đơn hàng trước khi Đặt Mua)</p>
+															</form>
 														</div>
 													</div>
 												</div>
@@ -467,7 +476,42 @@
 	<!-- footer  -->
 	<jsp:include page="_footer.jsp"></jsp:include>
 
-
+	<script>
+		$("#orders").submit(function(event) {
+			var someObj = {};
+			someObj.fruitsGranted = [];
+			someObj.fruitsDenied = [];
+			var checkboxes = document.querySelectorAll('input[type=checkbox]');
+			for (var i = 0; i < checkboxes.length; i++) {
+				if(checkboxes[i].checked==false){
+					someObj.fruitsDenied.push(checkboxes[i].name);
+				}
+				else{
+					someObj.fruitsGranted.push(checkboxes[i].name);
+				}
+			}
+			var name = document.getElementById("ordername");
+			var phone = document.getElementById("orderphone");
+			var address = document.getElementById("orderaddress");
+			var note = document.getElementById("ordernote");
+			$.ajax({
+				type:'POST',
+				url:'cart',
+				data:{
+					action : 'order',
+					checkbox : JSON.stringify(someObj),
+					name : name,
+					phone : phone,
+					address : address,
+					note : note
+				},
+				dataType: 'JSON',
+				success:function(data){
+							
+				}
+			});
+		});
+	</script>
 
 </body>
 

@@ -82,7 +82,7 @@ img[alt="www.000webhost.com"] {
 						class="col-12 d-flex justify-content-between align-items-center pb-2 bg-transparent pt-4">
 						<h1 class="header text-uppercase" style="font-weight: 400;">SÁCH
 							MỚI TUYỂN CHỌN</h1>
-						<a href="sach-moi-tuyen-chon.html"
+						<a href="bookgrenre?action=&bookgrenre_id=-1"
 							class="btn btn-warning btn-sm text-white">Xem tất cả</a>
 					</div>
 				</div>
@@ -144,7 +144,7 @@ img[alt="www.000webhost.com"] {
 					<div
 						class="col-12 d-flex justify-content-between align-items-center pb-2 bg-light">
 						<h2 class="header text-uppercase" style="font-weight: 400;">SÁCH BÁN CHẠY</h2>
-						<a href="#" class="btn btn-warning btn-sm text-white">Xem tất
+						<a href="bookgrenre?action=&bookgrenre_id=-2" class="btn btn-warning btn-sm text-white">Xem tất
 							cả</a>
 					</div>
 				</div>
@@ -206,7 +206,7 @@ img[alt="www.000webhost.com"] {
 					<div
 						class="col-12 d-flex justify-content-between align-items-center pb-2 bg-light">
 						<h2 class="header text-uppercase" style="font-weight: 400;">COMBO SÁCH HOT - SÁCH GIẢM GIÁ</h2>
-						<a href="#" class="btn btn-warning btn-sm text-white">Xem tất
+						<a href="bookgrenre?action=&bookgrenre_id=-3" class="btn btn-warning btn-sm text-white">Xem tất
 							cả</a>
 					</div>
 				</div>

@@ -184,6 +184,36 @@ public class CartDAO {
 		return cart;
 	}
 	
+	public static Cart getCartByAccountAndBookNotOrder(long account_id, long book_id) {
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.getCurrentSession();
+		Transaction transaction = null;
+		Cart cart = null;
+		try {
+			transaction = session.beginTransaction();
+
+			String sql = "from " + Cart.class.getName() + " where account_id=:account_id and book_id=:book_id  and order_id = NULL";
+
+			Query<Cart> query = session.createQuery(sql);
+
+			query.setParameter("account_id", account_id);
+			query.setParameter("book_id", book_id);
+			
+			cart = query.getSingleResult();
+			
+			transaction.commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			if(transaction != null) {
+				transaction.rollback();
+			}
+		} finally {
+			session.close();
+		}
+		return cart;
+	}
+	
 	public static ArrayList<Cart> getCountCartNotOrderByAccount(long account_id) {
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		Session session = factory.getCurrentSession();
@@ -192,7 +222,7 @@ public class CartDAO {
 		try {
 			transaction = session.beginTransaction();
 
-			String sql = "from " + Cart.class.getName() + " where account_id=:account_id and quantity > 0";
+			String sql = "from " + Cart.class.getName() + " where account_id=:account_id and order_id = NULL";
 
 			Query<Cart> query = session.createQuery(sql);
 
