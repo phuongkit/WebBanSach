@@ -31,7 +31,6 @@
 	<script type="text/javascript">
 	  $(document).ready(function(){
 			$('table .edit').on('click',function(){
-				//var id = $('table .edit').parent().find('#id').val();
 				var id = $(this).parent().find('#id').val();
 				$.ajax({
 					type:'GET',
@@ -59,7 +58,8 @@
 			  var reader = new FileReader();
 			  
 			  reader.onload=function(e){
-				  $('#image').attr('src', e.target.result);
+				  $('#addNewBook #image').attr('src', e.target.result);
+				  $('#editBook #image').attr('src', e.target.result);
 			  }
 			  reader.readAsDataURL(fileInput.files[0]);
 		  }
@@ -160,7 +160,7 @@
 							<input type="text" class="form-control" placeholder="Nhập tên sách" name = "name" required>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Mô tả" name = "description" required>
+							<input type="text" class="form-control" placeholder="Mô tả" name = "description" >
 						</div>
 						<div class="form-group">
 							<select class="form-control" id="book-select" name="bookgrenre">
@@ -221,7 +221,7 @@
 							<input type="text" class="form-control" placeholder="Nhập tên sách" name = "name" id = "name" value="${book.name}" required>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Mô tả" name = "description" id="description" required>
+							<input type="text" class="form-control" placeholder="Mô tả" name = "description" id="description">
 						</div>
 						<div class="form-group">
 							<select class="form-control" id="bookgrenre" name="bookgrenre" >
@@ -285,17 +285,5 @@
     <!-- Data table plugin-->
     <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
-    
-    <!-- Google analytics script-->
-    <script type="text/javascript">
-      if(document.location.hostname == 'pratikborsadiya.in') {
-      	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      	ga('create', 'UA-72504830-1', 'auto');
-      	ga('send', 'pageview');
-      }
-    </script>
   </body>
 </html>

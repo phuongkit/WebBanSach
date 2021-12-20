@@ -104,11 +104,15 @@ public class BookControl extends HttpServlet {
 		Book book = BookDAO.getBookByID(id);
 		Date nowDate = new Date();
 		Timestamp timestamp = new Timestamp(nowDate.getTime());
+		String imageName = request.getParameter("imageFile");
+		if(imageName.equals("")) {
+			imageName="default.jpg";
+		}
 		
 		BookGrenre bookGrenre = BookGrenreDAO.getBookGrenreByID(Long.parseLong(request.getParameter("bookgrenre")));
 		Author author = AuthorDAO.getAuthorByID(Long.parseLong(request.getParameter("author")));
 		Model.Supplier supplier = SupplierDAO.getSupplierByID(Long.parseLong(request.getParameter("supplier")));
-		Image image = ImageDAO.getImageByName(request.getParameter("imageFile"));
+		Image image = ImageDAO.getImageByName(imageName);
 		
 		book.setName(request.getParameter("name"));
 		book.setDescription(request.getParameter("description"));
@@ -136,11 +140,15 @@ public class BookControl extends HttpServlet {
 		Book book = new Book();
 		Date nowDate = new Date();
 		Timestamp timestamp = new Timestamp(nowDate.getTime());
+		String imageName = request.getParameter("imageFile");
+		if(imageName.equals("")) {
+			imageName="default.jpg";
+		}
 		
 		BookGrenre bookGrenre = BookGrenreDAO.getBookGrenreByID(Long.parseLong(request.getParameter("bookgrenre")));
 		Author author = AuthorDAO.getAuthorByID(Long.parseLong(request.getParameter("author")));
 		Model.Supplier supplier = SupplierDAO.getSupplierByID(Long.parseLong(request.getParameter("supplier")));
-		Image image = ImageDAO.getImageByName(request.getParameter("imageFile"));
+		Image image = ImageDAO.getImageByName(imageName);
 		
 		book.setName(request.getParameter("name"));
 		book.setDescription(request.getParameter("description"));
@@ -154,7 +162,7 @@ public class BookControl extends HttpServlet {
 		//book.setBookGrenre(BookGrenreDAO.getBookGrenreByID(1));
 		//book.setSupplier(SupplierDAO.getSupplierByID(1));
 		//book.setImage(ImageDAO.getImageByName("default.jpg"));
-		
+			
 		book.setImage(image);
 		book.setAuthor(author);
 		book.setBookGrenre(bookGrenre);

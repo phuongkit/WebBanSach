@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import Model.Cart;
+import Model.Customer;
 import Model.Order;
 import utils.HibernateUtils;
 
@@ -206,5 +207,9 @@ public class OrderDAO {
 			total = total.add(carts.get(i).getQuantity().multiply(carts.get(i).getBook().getSalePrice()));
 		}
 		return total;
+	}
+	
+	public static void main(String[] args) {
+	
 	}
 }

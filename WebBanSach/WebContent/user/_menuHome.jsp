@@ -22,12 +22,12 @@
 									<c:set scope="request" var="bookGrenres" value="${BookGrenreDAO.getAllBookGrenreByBookCategoryID(bc.id)}" />
 									<div class="content trai">
 										<c:forEach items="${bookGrenres}" begin="0" end="${(bookGrenres.size()+1)/2-1}" var="bgr">
-											<li><a href="#">${bgr.name}</a></li>
+											<li><a href="SearchServlet?action=searchcatagories&id=${bgr.id}">${bgr.name}</a></li>
 										</c:forEach>
 									</div>
 									<div class="content phai">
 										<c:forEach items="${bookGrenres}" begin="${(bookGrenres.size()+1)/2}" end="${bookGrenres.size()}" var="bgr">
-											<li><a href="#">${bgr.name}</a></li>
+											<li><a href="SearchServlet?action=searchcatagories&id=${bgr.id}">${bgr.name}</a></li>
 										</c:forEach>
 									</div>
 								</ul></li>
